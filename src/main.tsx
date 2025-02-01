@@ -5,7 +5,7 @@ import { RouterProvider } from "react-router-dom";
 import { createBrowserRouter } from 'react-router-dom';
 
 import RootLayout from './layouts/root-layout.tsx'
-import DashboardLayout from './layouts/dashboard-layout.tsx';
+// import DashboardLayout from './layouts/dashboard-layout.tsx';
 import { HomePage } from './components/pages/Home.tsx';
 
 const router = createBrowserRouter([
@@ -25,10 +25,6 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
-export const databaseEndpoint = 'localhost:8443';
-
-console.log(`Using database endpoint: ${databaseEndpoint}`);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
