@@ -6,15 +6,16 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import RootLayout from './layouts/root-layout.tsx'
 // import DashboardLayout from './layouts/dashboard-layout.tsx';
-import { HomePage } from './components/pages/Home.tsx';
+import { LandingPage } from './components/pages/LandingPage.tsx';
+import { SignUpPage } from './components/pages/SignUpPage.tsx';
 
 const router = createBrowserRouter([
   {
     element: <RootLayout />,
     children: [
-      { path: '/*', element: <HomePage /> },
+      { path: '/*', element: <LandingPage /> },
       // { path: '/sign-in/*', element: <SignInPage /> },
-      // { path: '/sign-up/*', element: <SignUpPage /> },
+      { path: '/sign-up/*', element: <SignUpPage /> },
       // {
       //   element: <DashboardLayout />,
       //   path: 'dashboard',
