@@ -20,14 +20,14 @@ export const NavBar = ({ userLocation }: NavigationBarProps): JSX.Element => {
 
     const getStartedButton = <Button className="hover:bg-zinc-800 transition-all duration-300 hover:scale-105" onClick={() => navigate('/sign-up')}>Get Started</Button>;
     const signInButton =
-        <NavigationMenuLink
+        <NavigationMenuLink onClick={() => navigate('/sign-in')}
             className="block px-4 py-2 rounded-md text-gray-900
                     dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-zinc-800 
                     transition-all duration-300 hover:scale-105">
             Sign In
         </NavigationMenuLink>;
 
-    const signUpButton = <Button>Sign Up</Button>;
+    const signUpButton = <Button onClick={() => navigate('/sign-up')}>Sign Up</Button>;
     const signOutButton = <Button>Sign Out</Button>;
 
     const renderNavBarUtils = (userLocation?: UserLocation): JSX.Element[] => {
