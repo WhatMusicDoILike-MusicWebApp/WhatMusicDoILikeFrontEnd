@@ -10,16 +10,18 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import { useMemo } from 'react'
 
 export const LandingPage = (): JSX.Element => {
 
     const navigate = useNavigate();
+    const fetchBackground = useMemo(() => renderBackground(), []);
 
     return (
         <div className='dark:bg-zinc-900 dark:text-gray-100'>
             <NavBar userLocation={UserLocation.LANDING} />
             <div className="pt-32 p-8 flex items-start justify-center h-screen bg-cover bg-center"
-                style={{ backgroundImage: `url('${renderBackground()}')` }}
+                style={{ backgroundImage: `url('${fetchBackground}')` }}
             >
                 <div className="text-center z-10 relative">
                     <h1 className="text-4xl font-bold p-8 text-white">Welcome to WhatMusicDoILike?</h1>
