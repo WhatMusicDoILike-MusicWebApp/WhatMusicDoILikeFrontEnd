@@ -10,6 +10,7 @@ import { SignUpPage } from './components/pages/sign-up/SignUpPage.tsx';
 import DashboardLayout from './layouts/dashboard-layout.tsx';
 import { DashboardPage } from './components/pages/dashboard/DashboardPage.tsx';
 import { SignInPage } from './components/pages/sign-in/SignInPage.tsx';
+import { OurPage } from './components/pages/OurPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
       { path: '/*', element: <LandingPage /> },
       { path: '/sign-in/*', element: <SignInPage /> },
       { path: '/sign-up/*', element: <SignUpPage /> },
+      { path: '/our-team', element: <OurPage />},
       {
         element: <DashboardLayout />,
         path: 'dashboard',
