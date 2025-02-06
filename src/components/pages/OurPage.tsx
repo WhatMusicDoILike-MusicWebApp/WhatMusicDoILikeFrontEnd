@@ -43,16 +43,16 @@ export const OurPage= () => {
     return (
         <div className='dark:bg-zinc-900 dark:text-gray-100'>
             <NavBar userLocation={UserLocation.LANDING} />
-            <div className="pt-32 p-8 flex items-start justify-center h-screen bg-cover bg-center"
+            <div className="pt-20 p-8 flex items-start justify-center h-screen bg-cover bg-center"
                 style={{ backgroundImage: `url('${fetchBackground}')` }}
             >
                 <div className="text-center z-10 relative">
                     <h1 className="text-4xl font-bold p-8 text-white">Meet The Team</h1>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
                         {teamMembers.map((member, index) => (
-                            <Card key={index} className="p-4 shadow-md rounded-2xl">
-                            <CardContent>
-                                <Avatar className="w-20 h-20">
+                            <Card key={index} className="p-4 shadow-md rounded-2xl item-center">
+                            <CardContent className="flex flex-col items-center justify-center p-3">
+                                <Avatar className="w-[150px] h-[150px]">
                                     <AvatarImage src="https://github.com/shadcn.png" />
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
