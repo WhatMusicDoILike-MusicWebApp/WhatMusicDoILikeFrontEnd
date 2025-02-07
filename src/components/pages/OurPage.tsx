@@ -47,12 +47,12 @@ export const OurPage= () => {
                 style={{ backgroundImage: `url('${fetchBackground}')` }}
             > 
                 <div className="text-center z-10 relative">
-                    <h1 className="text-4xl font-bold p-8 text-white">Meet The Team</h1>
+                    <h1 className="text-4xl font-bold p-6 text-white">Meet The Team</h1>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
                         {teamMembers.map((member, index) => (
                             <Card key={index} className="p-4 shadow-md rounded-2xl item-center">
                             <CardContent className="flex flex-col items-center justify-center p-3">
-                                <Avatar className="w-[150px] h-[150px]">
+                                <Avatar className="w-[100px] h-[100px]">
                                     <AvatarImage src="https://github.com/shadcn.png" />
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
