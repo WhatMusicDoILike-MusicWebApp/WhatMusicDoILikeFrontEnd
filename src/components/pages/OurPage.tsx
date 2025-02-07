@@ -41,11 +41,11 @@ export const OurPage= () => {
     const fetchBackground = useMemo(() => renderBackground(), []);
 
     return (
-        <div className='dark:bg-zinc-900 dark:text-gray-100'>
+        <div className= 'bg-slate-400'>
             <NavBar userLocation={UserLocation.LANDING} />
-            <div className="pt-20 p-8 flex items-start justify-center h-screen bg-cover bg-center"
+             <div className="pt-20 p-8 flex items-start justify-center min-h-screen bg-cover bg-center"
                 style={{ backgroundImage: `url('${fetchBackground}')` }}
-            >
+            > 
                 <div className="text-center z-10 relative">
                     <h1 className="text-4xl font-bold p-8 text-white">Meet The Team</h1>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
@@ -65,6 +65,6 @@ export const OurPage= () => {
                     </div>
                 </div>
             </div>
-        </div>   
+          </div>   
     )
 }

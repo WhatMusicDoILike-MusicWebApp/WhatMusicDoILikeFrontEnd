@@ -3,6 +3,7 @@ import {
     CardContent,
     CardHeader,
     CardTitle,
+    CardDescription
 } from "@/components/ui/card"
 import {
     Form,
@@ -84,8 +85,9 @@ export const SignUpForm = ({ setCurrentStep, setDBUserName, setDBUserEmail }: Si
 
     return (
         <Card className=" w-2/3 shadow-lg dark:bg-zinc-900 text-gray-900 dark:text-gray-100 text-start border-0">
-            <CardHeader>
-                <CardTitle className="text-start ml-2">Enter Account Details</CardTitle>
+            <CardHeader className="text-center">
+                <CardTitle className="text-3xl font-bold">Create Your Account</CardTitle>
+                <CardDescription>Enter Account Details</CardDescription>
             </CardHeader>
             <CardContent>
                 {isError && (<Alert className="bg-red-100 text-red-900 dark:bg-red-900 dark:text-red-100 " >
