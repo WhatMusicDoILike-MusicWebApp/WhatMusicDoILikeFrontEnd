@@ -45,6 +45,7 @@ const items = [
 const logout = [
     {
         title: "Log Out",
+        url: "#",
         icon: Home,
     }
 ]
@@ -76,7 +77,7 @@ export function AppSidebar() {
                 {logout.map((item) => (
                     <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                        <a>
+                        <a href={item.url}>
                         <item.icon />
                         <span>{item.title}</span>
                         </a>
