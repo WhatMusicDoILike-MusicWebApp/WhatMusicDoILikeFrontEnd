@@ -1,4 +1,4 @@
-import { CirclePlay , Home, Cloud , Search, SquareUser , Music } from "lucide-react"
+import { CirclePlay , Home, Cloud , Search, SquareUser , Music , LogOut } from "lucide-react"
 
 
 import {
@@ -9,6 +9,7 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
+  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
@@ -46,13 +47,13 @@ const logout = [
     {
         title: "Log Out",
         url: "#",
-        icon: Home,
+        icon: LogOut,
     }
 ]
 
 export function AppSidebar() {
   return (
-        <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" className="bg-[var(--sidebar-background)] text-[var(--sidebar-foreground)]">
         <SidebarContent>
             <SidebarGroup>
             <SidebarGroupLabel>Welcome UsernameHere</SidebarGroupLabel>
@@ -62,10 +63,11 @@ export function AppSidebar() {
                     <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
                         <a href={item.url}>
-                        <item.icon />
+                        <item.icon color = "#0080ff" strokeWidth={3}/>
                         <span>{item.title}</span>
                         </a>
                     </SidebarMenuButton>
+                    <SidebarMenuAction className="peer-data-[active=true]/menu-button:opacity-100" />
                     </SidebarMenuItem>
                 ))}
                 </SidebarMenu>
@@ -78,7 +80,7 @@ export function AppSidebar() {
                     <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
                         <a href={item.url}>
-                        <item.icon />
+                        <item.icon color = "#0080ff" strokeWidth={3}/>
                         <span>{item.title}</span>
                         </a>
                     </SidebarMenuButton>

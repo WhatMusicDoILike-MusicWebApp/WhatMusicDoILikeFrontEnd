@@ -12,15 +12,10 @@ export const DashboardPage = ({ children }: { children: React.ReactNode }): JSX.
     return (
         <SidebarProvider>
             <AppSidebar />
-            <main>
+            <main className = 'flex flex-col w-full dark:bg-zinc-900 '>
                 <SidebarTrigger />
                 {children}
-                <div className='dark:bg-zinc-900 dark:text-gray-100'>
-                    <div className="p-8 flex items-start justify-center h-screen bg-cover bg-center"
-                        style={{ backgroundImage: `url('${fetchBackground}')` }}
-                    >
-                    Hello! This is the Dashboard Page.
-                    </div>
+                <div className = 'flex'>
                 </div>
             </main>
         </SidebarProvider>
