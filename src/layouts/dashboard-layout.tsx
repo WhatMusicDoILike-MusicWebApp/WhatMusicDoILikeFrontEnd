@@ -11,7 +11,7 @@ export default function DashboardLayout() {
         if (isLoaded && !userId) {
             navigate('/sign-in')
         }
-    }, [isLoaded])
+    }, [isLoaded, session])
 
     if (!isLoaded) return <>Loading...</>;
 
