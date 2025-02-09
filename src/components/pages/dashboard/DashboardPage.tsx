@@ -3,7 +3,6 @@ import { UserLocation } from "../constants-types"
 import { NavBar } from "../NavBar"
 import { useAuth, useClerk, useSession } from "@clerk/clerk-react";
 
-
 export const DashboardPage = (): JSX.Element => {
 
     const clerk = useClerk();

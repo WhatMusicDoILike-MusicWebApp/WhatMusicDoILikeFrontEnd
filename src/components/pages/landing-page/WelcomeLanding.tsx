@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@radix-ui/react-separator"
 import { useNavigate } from "react-router-dom"
 
-
 export const WelcomeLanding = () => {
 
     const navigate = useNavigate();

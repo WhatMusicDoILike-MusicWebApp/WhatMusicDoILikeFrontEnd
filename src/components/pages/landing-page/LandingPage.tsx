@@ -1,11 +1,9 @@
 import { UserLocation } from '../constants-types'
 import { NavBar } from '../NavBar'
 
-
 import ObserverProvider from '../../ui/observerprovider';
 import { TeamMembers } from './TeamMembers'
 import { WelcomeLanding } from './WelcomeLanding'
-
 
 export const LandingPage = (): JSX.Element => {
 

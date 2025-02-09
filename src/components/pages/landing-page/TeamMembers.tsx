@@ -1,36 +1,11 @@
-
 import { NavBar } from '../NavBar'
-import { UserLocation } from '../constants-types'
+import { teamMembers, UserLocation } from '../constants-types'
 import {
   Card,
   CardContent
 } from "@/components/ui/card"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-
-
-const teamMembers = [
-  {
-    name: "Ethan Pan",
-    role: "FrontEnd Developer",
-    bio: "Ethan designs webpages using ShadCN, Tailwind, and React.",
-  },
-  {
-    name: "Maayan Israel",
-    role: "FullStack Developer",
-    bio: "Knows Everything.....",
-  },
-  {
-    name: "Caleb Ng",
-    role: "BackEnd Developer",
-    bio: "Caleb focuses on server-side logic and database management.",
-  },
-  {
-    name: "Iker Goni",
-    role: "BackEnd Developer",
-    bio: "Iker works with setting up all API endpoints.",
-  },
-];
 
 export const TeamMembers = () => {
 
