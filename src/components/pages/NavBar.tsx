@@ -79,7 +79,7 @@ export const NavBar = ({ userLocation, handleSignOutConfirmClick }: NavigationBa
     }, [userLocation]);
 
     return (
-        <nav className="fixed top-0 left-0 w-full bg-white dark:bg-zinc-900 shadow-md z-50">
+        <nav className="fixed top-0 left-0 w-full bg-white dark:bg-zinc-900 shadow-md z-50 h-16">
             <div className="flex justify-between items-center p-3">
                 <NavigationMenu orientation="horizontal">
                     <NavigationMenuList className="flex items-center space-x-2">
@@ -99,6 +99,7 @@ export const NavBar = ({ userLocation, handleSignOutConfirmClick }: NavigationBa
                             <NavigationMenuItem>
                                 <NavigationMenuLink className="block px-4 py-2 rounded-lg text-gray-900 dark:text-gray-100 
                                     hover:bg-gray-200 dark:hover:bg-zinc-800 transition-all duration-300 hover:scale-105"
+                                    href="#team-page"
                                 >
                                     The Team
                                 </NavigationMenuLink>

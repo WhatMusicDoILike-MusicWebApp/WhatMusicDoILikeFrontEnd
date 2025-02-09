@@ -3,6 +3,7 @@ import {
     CardContent,
     CardHeader,
     CardTitle,
+    CardDescription
 } from "@/components/ui/card"
 import {
     Form,
@@ -80,10 +81,12 @@ export const SignInForm = (): JSX.Element => {
     }, [isSignedIn, isLoaded]);
 
     return (
-        <Card className=" w-2/3 shadow-lg dark:bg-zinc-900 text-gray-900 dark:text-gray-100 text-start border-0">
-            <CardHeader>
-                <CardTitle className="text-start ml-2">Enter Sign In Information</CardTitle>
+        <Card className=" flex flex-col w-2/3 shadow-lg dark:bg-zinc-900 text-gray-900 dark:text-gray-100 text-start border-0 motion-opacity-in-0">
+            <CardHeader className="text-center">
+                <CardTitle className="text-3xl font-bold">Sign In</CardTitle>
+                <CardDescription>Enter Your Account Informtion</CardDescription>
             </CardHeader>
+            
             <CardContent>
                 {isError && (<Alert className="bg-red-100 text-red-900 dark:bg-red-900 dark:text-red-100 " >
                     <Terminal className="h-4 w-4" />

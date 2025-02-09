@@ -5,7 +5,7 @@ import { RouterProvider } from "react-router-dom";
 import { createBrowserRouter } from 'react-router-dom';
 
 import RootLayout from './layouts/root-layout.tsx'
-import { LandingPage } from './components/pages/LandingPage.tsx';
+import { LandingPage } from './components/pages/landing-page/LandingPage.tsx';
 import { SignUpPage } from './components/pages/sign-up/SignUpPage.tsx';
 import DashboardLayout from './layouts/dashboard-layout.tsx';
 import { DashboardPage } from './components/pages/dashboard/DashboardPage.tsx';
@@ -34,4 +34,3 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <RouterProvider router={router} />
   </React.StrictMode>
 );
-
