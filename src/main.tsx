@@ -10,7 +10,7 @@ import { SignUpPage } from './components/pages/sign-up/SignUpPage.tsx';
 import DashboardLayout from './layouts/dashboard-layout.tsx';
 import { DashboardPage } from './components/pages/dashboard/DashboardPage.tsx';
 import { SignInPage } from './components/pages/sign-in/SignInPage.tsx';
-import { OurPage } from './components/pages/OurPage.tsx';
+import { OurPage } from './components/pages/landing-page/OurPage.tsx';
 import { AppSidebar } from "@/components/ui/app-sidebar"
 
 const router = createBrowserRouter([
