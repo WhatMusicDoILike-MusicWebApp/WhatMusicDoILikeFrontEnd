@@ -81,7 +81,7 @@ export const SignInForm = (): JSX.Element => {
     }, [isSignedIn, isLoaded]);
 
     return (
-        <Card className=" flex flex-col w-2/3 shadow-lg dark:bg-zinc-900 text-gray-900 dark:text-gray-100 text-start border-0">
+        <Card className=" flex flex-col w-2/3 shadow-lg dark:bg-zinc-900 text-gray-900 dark:text-gray-100 text-start border-0 motion-opacity-in-0">
             <CardHeader className="text-center">
                 <CardTitle className="text-3xl font-bold">Sign In</CardTitle>
                 <CardDescription>Enter Your Account Informtion</CardDescription>

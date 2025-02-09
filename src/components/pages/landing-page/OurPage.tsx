@@ -45,7 +45,7 @@ export const OurPage= () => {
                   <h1 className="text-4xl font-bold p-6 text-white">Meet The Team</h1>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-4">
                       {teamMembers.map((member, index) => (
-                          <Card key={index} className="p-4 shadow-md rounded-2xl item-center  dark:bg-zinc-900 dark:border-zinc-700 intersect:motion-preset-slide-up">
+                          <Card key={index} className="p-4 shadow-md rounded-2xl item-center  dark:bg-zinc-900 dark:border-zinc-700 intersect:motion-opacity-in-0 intersect:motion-preset-slide-up motion-delay-300">
                           <CardContent className="flex flex-col items-center justify-center p-3">
                               <Avatar className="w-[100px] h-[100px]">
                                   <AvatarImage src="https://github.com/shadcn.png" />

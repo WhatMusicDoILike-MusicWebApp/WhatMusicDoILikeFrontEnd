@@ -68,7 +68,7 @@ export const NavBar = ({ userLocation }: NavigationBarProps): JSX.Element => {
                             <NavigationMenuItem>
                                 <NavigationMenuLink className="block px-4 py-2 rounded-lg text-gray-900 dark:text-gray-100 
                                     hover:bg-gray-200 dark:hover:bg-zinc-800 transition-all duration-300 hover:scale-105"
-                                    onClick={() => navigate('/our-team')}
+                                    href="#team-page"
                                 >
                                     The Team
                                 </NavigationMenuLink>

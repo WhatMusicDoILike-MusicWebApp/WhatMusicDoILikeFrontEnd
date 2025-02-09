@@ -16,7 +16,9 @@ export const LandingPage = (): JSX.Element => {
             <div className=' flex flex-col dark:bg-zinc-900 dark:text-gray-100'>
                 <NavBar userLocation={UserLocation.LANDING} />
                 <WelcomePage />
-                <OurPage />
+                <div id="team-page">
+                <   OurPage />
+                </div>
             </div>
         </ObserverProvider>
     )

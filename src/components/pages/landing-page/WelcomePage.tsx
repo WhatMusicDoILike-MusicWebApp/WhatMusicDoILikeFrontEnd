@@ -45,7 +45,7 @@ export const WelcomePage= () => {
                                 Our goal is to help users explore new music and share their music preferences with others.
                             </CardDescription>
                             <div className='flex justify-end mr-2'>
-                                <Button variant='link' className="mt-4 transition-all duration-300 hover:scale-105" onClick={() => console.log('About Us Clicked!')}>About Us</Button>
+                                <Button variant='link' className="mt-4 transition-all duration-300 hover:scale-105" onClick={() => (window.location.href = "#team-page")}>About Us</Button>
                                 <Button className="mt-4 hover:bg-zinc-800 transition-all duration-300 hover:scale-105" onClick={() => navigate('/sign-up')}>Get Started</Button>
                             </div>
                         </CardContent>

@@ -84,7 +84,7 @@ export const SignUpForm = ({ setCurrentStep, setDBUserName, setDBUserEmail }: Si
     });
 
     return (
-        <Card className=" w-2/3 shadow-lg dark:bg-zinc-900 text-gray-900 dark:text-gray-100 text-start border-0">
+        <Card className="motion-opacity-in-0 w-2/3 shadow-lg dark:bg-zinc-900 text-gray-900 dark:text-gray-100 text-start border-0">
             <CardHeader className="text-center">
                 <CardTitle className="text-3xl font-bold">Create Your Account</CardTitle>
                 <CardDescription>Enter Account Details</CardDescription>
