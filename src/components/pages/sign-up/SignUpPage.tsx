@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { SignUpForm } from './SignUpForm';
 import { useAuth } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router-dom';
-import axios from "axios"
+import axios from "axios";
 import { EmailVerificationForm } from './EmailVerificationForm';
 
 export const SignUpPage = (): JSX.Element => {
@@ -13,21 +13,19 @@ export const SignUpPage = (): JSX.Element => {
     const [currentStep, setCurrentStep] = useState<SignUpStep>(SignUpStep.SignUp);
     const navigate = useNavigate();
 
-    const { userId, isLoaded } = useAuth();
+    // const databaseEndpoint = 1; 
 
-    const databaseEndpoint = 1; //Temporary placeholder
-
-    useEffect(() => {
-        const createUser = async () => {
-            if (userId && isLoaded) {
-                console.log('User ID:', userId);
-                const response = await axios.post(`https://${databaseEndpoint}/users`, { id: userId, email: dbUserEmail, name: dbUserName });
-                console.log("Created User:", response.data);
-                navigate(`/dashboard/${userId}`);
-            }
-        };
-        createUser();
-    }, [userId, isLoaded]);
+    // useEffect(() => {
+    //     // const createUser = async () => {
+    //     //     if (userId && isLoaded) {
+    //     //         console.log('User ID:', userId);
+    //     //         const response = await axios.post(`https://${databaseEndpoint}/users`, { id: userId, email: dbUserEmail, name: dbUserName });
+    //     //         console.log("Created User:", response.data);
+    //     //         navigate(`/dashboard/${userId}`);
+    //     //     }
+    //     // };
+    //     // createUser();
+    // }, [userId, isLoaded]);
 
     const steps = (step: SignUpStep) => {
         switch (step) {

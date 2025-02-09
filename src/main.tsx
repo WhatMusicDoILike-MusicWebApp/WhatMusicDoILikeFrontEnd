@@ -11,7 +11,6 @@ import DashboardLayout from './layouts/dashboard-layout.tsx';
 import { DashboardPage } from './components/pages/dashboard/DashboardPage.tsx';
 import { SignInPage } from './components/pages/sign-in/SignInPage.tsx';
 import { OurPage } from './components/pages/landing-page/OurPage.tsx';
-import { AppSidebar } from "@/components/ui/app-sidebar"
 
 const router = createBrowserRouter([
   {
@@ -25,7 +24,7 @@ const router = createBrowserRouter([
         element: <DashboardLayout />,
         path: 'dashboard',
         children: [
-          { path: '/dashboard/:userId', element: <DashboardPage> <AppSidebar/> </DashboardPage> },
+          { path: '/dashboard/:userId', element: <DashboardPage />},
         ],
       },
     ],

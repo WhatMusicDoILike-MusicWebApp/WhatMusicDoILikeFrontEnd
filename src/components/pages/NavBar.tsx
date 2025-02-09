@@ -9,14 +9,29 @@ import { UserLocation } from "./constants-types";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
 interface NavigationBarProps {
     userLocation?: UserLocation;
+    handleSignOutConfirmClick?: () => void;
     setIsSignOutConfirmOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const NavBar = ({ userLocation }: NavigationBarProps): JSX.Element => {
+export const NavBar = ({ userLocation, handleSignOutConfirmClick }: NavigationBarProps): JSX.Element => {
     const [navItems, setNavItems] = useState<JSX.Element[]>([]);
     const navigate = useNavigate();
+
+
 
     const getStartedButton = <Button className="hover:bg-zinc-800 transition-all duration-300 hover:scale-105" onClick={() => navigate('/sign-up')}>Get Started</Button>;
     const signInButton =
@@ -28,7 +43,23 @@ export const NavBar = ({ userLocation }: NavigationBarProps): JSX.Element => {
         </NavigationMenuLink>;
 
     const signUpButton = <Button onClick={() => navigate('/sign-up')}>Sign Up</Button>;
-    const signOutButton = <Button>Sign Out</Button>;
+    const signOutButton =
+        <AlertDialog>
+            <AlertDialogTrigger><Button>Sign Out</Button></AlertDialogTrigger>
+
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>Sign Out?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        Are you sure you want to sign out?
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel className="text-gray-100">Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={() => handleSignOutConfirmClick && handleSignOutConfirmClick()}>Continue</AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>;
 
     const renderNavBarUtils = (userLocation?: UserLocation): JSX.Element[] => {
         switch (userLocation) {

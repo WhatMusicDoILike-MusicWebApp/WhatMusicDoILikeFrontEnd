@@ -20,8 +20,9 @@ import { Input } from '../../ui/input'
 import { Button } from '../../ui/button'
 import { handleEmailVerification } from "./SignUpModel";
 import { useState } from "react";
-import { useClerk } from "@clerk/clerk-react";
+import { useAuth, useClerk } from "@clerk/clerk-react";
 import { Terminal } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z
     .object({
@@ -35,6 +36,8 @@ export const EmailVerificationForm = (): JSX.Element => {
     const [errorMessage, setErrorMessage] = useState('');
 
     const clerk = useClerk();
+    const navigate = useNavigate();
+    const { userId } = useAuth();
 
     const emailVerificationForm = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -48,7 +51,9 @@ export const EmailVerificationForm = (): JSX.Element => {
         await handleEmailVerification(values.verificationCode, setIsError, setErrorMessage, clerk);
         console.log("successful verify: " + values);
 
-        //navigate to dashboard
+        if (!isError) {
+            navigate(`/dashboard/${userId}`);
+        }
     };
 
     return (

@@ -5,7 +5,6 @@ import { SignInForm } from "./SignInForm"
 
 export const SignInPage = () => {
 
-
     // const fetchBackground = useMemo(() => renderBackground(), []);
 
     return (
