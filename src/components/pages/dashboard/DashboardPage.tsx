@@ -1,12 +1,15 @@
 import { useEffect } from "react";
 import { UserLocation } from "../constants-types"
 import { NavBar } from "../NavBar"
-import { useAuth, useClerk, useSession } from "@clerk/clerk-react";
+import { useClerk, useSession } from "@clerk/clerk-react";
+
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { SideBar } from "./SideBar";
 
 export const DashboardPage = (): JSX.Element => {
 
     const clerk = useClerk();
-    const { userId } = useAuth();
+    // const { userId } = useAuth();
     const { session, isSignedIn } = useSession();
 
     const handleSignOutConfirmClick = () => {
@@ -27,11 +30,14 @@ export const DashboardPage = (): JSX.Element => {
     }, [isSignedIn, session])
 
     return (
-        <div className='dark:bg-zinc-900 dark:text-gray-100'>
+        <SidebarProvider>
             <NavBar userLocation={UserLocation.DASHBOARD} handleSignOutConfirmClick={handleSignOutConfirmClick} />
-            <div className="pt-32 p-8 flex items-start justify-center h-screen bg-cover bg-center bg-gradient-to-b from-black via-gray-500 to-white">
-                Hello! This is the Dashboard Page.
-            </div>
-        </div>
+            <main className='flex flex-col w-full dark:bg-zinc-900 '>
+                <SidebarTrigger />
+                <SideBar />
+                <div className='flex'>
+                </div>
+            </main>
+        </SidebarProvider>
     )
 }
