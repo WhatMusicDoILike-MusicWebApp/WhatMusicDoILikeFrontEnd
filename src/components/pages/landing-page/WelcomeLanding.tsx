@@ -6,17 +6,16 @@ import { Separator } from "@radix-ui/react-separator"
 import { useNavigate } from "react-router-dom"
 
 
-export const WelcomePage= () => {
+export const WelcomeLanding = () => {
 
-    // const fetchBackground = useMemo(() => renderBackground(), []);
     const navigate = useNavigate();
 
     return (
         <div className=' flex flex-col dark:bg-zinc-900 dark:text-gray-100'>
             <NavBar userLocation={UserLocation.LANDING} />
-            <div className="pt-25 flex items-center h-screen bg-cover bg-center justify-evenly gap-15 bg-gradient-to-b from-pink-500 via-purple-500 to-indigo-600">
+            <div className="pt-25 flex items-center h-screen bg-cover bg-center justify-evenly gap-15 bg-gradient-to-b from-black via-gray-500 to-white">
                 <h1 className=" min-w-[485px] text-5xl font-bold p-8 text-white text-center w-2/5">Welcome to WhatMusicDoILike?</h1>
-                <div className ="flex flex-col justify-evenly w-screen max-w-[50%]">
+                <div className="flex flex-col justify-evenly w-screen max-w-[50%]">
                     <Card className="intersect:motion-opacity-in-0 intersect:motion-translate-x-in-100 motion-duration-800 max-w-2xl min-w-[614px] shadow-lg dark:bg-zinc-900 text-gray-900 dark:text-gray-100 text-start border-0">
                         <CardHeader>
                             <CardTitle className="text-start ml-2">Usability</CardTitle>
@@ -52,6 +51,6 @@ export const WelcomePage= () => {
                     </Card>
                 </div>
             </div>
-        </div> 
+        </div>
     )
 }

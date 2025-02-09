@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAuth, useSession } from '@clerk/clerk-react'
 import { Outlet, useNavigate } from 'react-router-dom'
 
@@ -15,5 +15,5 @@ export default function DashboardLayout() {
 
     if (!isLoaded) return <>Loading...</>;
 
-    return <Outlet/>
+    return <Outlet />
 }
