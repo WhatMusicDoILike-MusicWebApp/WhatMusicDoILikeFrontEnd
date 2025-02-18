@@ -1,30 +1,33 @@
 import { SignUpStep, UserLocation } from '../constants-types'
 import { NavBar } from '../NavBar'
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SignUpForm } from './SignUpForm';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { EmailVerificationForm } from './EmailVerificationForm';
+import { useAuth } from '@clerk/clerk-react';
 
 export const SignUpPage = (): JSX.Element => {
     const [dbUserEmail, setDBUserEmail] = useState<string>('');
     const [dbUserName, setDBUserName] = useState<string>('');
     const [currentStep, setCurrentStep] = useState<SignUpStep>(SignUpStep.SignUp);
     const navigate = useNavigate();
+    const { userId, isLoaded } = useAuth();
 
-    // const databaseEndpoint = 1; 
+    const databaseEndpoint = '127.0.0.1:5000';
 
-    // useEffect(() => {
-    //     // const createUser = async () => {
-    //     //     if (userId && isLoaded) {
-    //     //         console.log('User ID:', userId);
-    //     //         const response = await axios.post(`https://${databaseEndpoint}/users`, { id: userId, email: dbUserEmail, name: dbUserName });
-    //     //         console.log("Created User:", response.data);
-    //     //         navigate(`/dashboard/${userId}`);
-    //     //     }
-    //     // };
-    //     // createUser();
-    // }, [userId, isLoaded]);
+    useEffect(() => {
+        const createUser = async () => {
+            const response = await axios.post(`http://${databaseEndpoint}/users`, { userId: userId, email: dbUserEmail, name: dbUserName });
+            console.log("Created User:", response.data);
+            navigate(`/dashboard/${userId}`);
+
+            //add in error handling to check if user was created, if not, display error message and have user re signup
+        };
+
+        if (userId && isLoaded)
+            createUser();
+    }, [userId, isLoaded]);
 
     const steps = (step: SignUpStep) => {
         switch (step) {
