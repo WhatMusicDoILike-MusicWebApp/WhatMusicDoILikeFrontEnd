@@ -1,12 +1,11 @@
 import { useEffect } from "react";
 import { UserLocation } from "../constants-types"
 import { NavBar } from "../NavBar"
-import { useAuth, useClerk, useSession } from "@clerk/clerk-react";
+import { useClerk, useSession } from "@clerk/clerk-react";
 
 export const DashboardPage = (): JSX.Element => {
 
     const clerk = useClerk();
-    const { userId } = useAuth();
     const { session, isSignedIn } = useSession();
 
     const handleSignOutConfirmClick = () => {
