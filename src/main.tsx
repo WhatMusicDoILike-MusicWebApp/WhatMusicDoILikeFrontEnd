@@ -22,7 +22,7 @@ const router = createBrowserRouter([
         element: <DashboardLayout />,
         path: 'dashboard',
         children: [
-          { path: '/dashboard/:userId', element: <DashboardPage /> },
+          { path: '', element: <DashboardPage /> }, // Handles "/dashboard"
         ],
       },
     ],
