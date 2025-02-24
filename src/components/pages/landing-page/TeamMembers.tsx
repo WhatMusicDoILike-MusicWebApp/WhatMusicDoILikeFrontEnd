@@ -13,9 +13,9 @@ export const TeamMembers = () => {
     <div>
       <div className='bg-slate-400'>
         <NavBar userLocation={UserLocation.LANDING} />
-        <div className="pt-20 p-8 flex items-start justify-center min-h-screen bg-cover bg-center bg-gradient-to-b from-white via-gray-500 to-black">
+        <div className="pt-20 p-8 flex items-start justify-center min-h-screen bg-cover bg-center bg-gradient-to-b from-white via-indigo-300 to-indigo-700 dark:from-slate-800 dark:via-indigo-500 dark:to-indigo-300">
           <div className="text-center z-10 relative">
-            <h1 className="text-4xl font-bold p-6 text-black">Meet The Team</h1>
+            <h1 className="text-4xl font-bold p-6 text-black dark:text-white">Meet The Team</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-4">
               {teamMembers.map((member, index) => (
                 <Card key={index} className="p-4 shadow-md rounded-2xl item-center  dark:bg-zinc-900 dark:border-zinc-700 intersect:motion-opacity-in-0 intersect:motion-preset-slide-up motion-delay-300">
