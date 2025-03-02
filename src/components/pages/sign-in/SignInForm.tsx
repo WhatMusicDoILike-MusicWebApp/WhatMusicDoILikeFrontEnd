@@ -76,7 +76,7 @@ export const SignInForm = (): JSX.Element => {
 
     useEffect(() => {
         if (isSignedIn && isLoaded) {
-            navigate(`/dashboard/${userId}`);
+            navigate(`/dashboard`);
         }
     }, [isSignedIn, isLoaded]);
 
@@ -86,7 +86,7 @@ export const SignInForm = (): JSX.Element => {
                 <CardTitle className="text-3xl font-bold">Sign In</CardTitle>
                 <CardDescription>Enter Your Account Informtion</CardDescription>
             </CardHeader>
-            
+
             <CardContent>
                 {isError && (<Alert className="bg-red-100 text-red-900 dark:bg-red-900 dark:text-red-100 " >
                     <Terminal className="h-4 w-4" />

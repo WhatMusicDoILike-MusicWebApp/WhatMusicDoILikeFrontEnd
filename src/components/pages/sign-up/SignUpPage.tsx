@@ -5,7 +5,7 @@ import { SignUpForm } from './SignUpForm';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { EmailVerificationForm } from './EmailVerificationForm';
-import { useAuth } from '@clerk/clerk-react';
+import { useAuth, useSession } from '@clerk/clerk-react';
 
 export const SignUpPage = (): JSX.Element => {
     const [dbUserEmail, setDBUserEmail] = useState<string>('');
@@ -13,21 +13,29 @@ export const SignUpPage = (): JSX.Element => {
     const [currentStep, setCurrentStep] = useState<SignUpStep>(SignUpStep.SignUp);
     const navigate = useNavigate();
     const { userId, isLoaded } = useAuth();
+    const { session } = useSession();
 
     const databaseEndpoint = '127.0.0.1:5000';
 
     useEffect(() => {
         const createUser = async () => {
-            const response = await axios.post(`http://${databaseEndpoint}/users`, { userId: userId, email: dbUserEmail, name: dbUserName });
-            console.log("Created User:", response.data);
-            navigate(`/dashboard/${userId}`);
+            if (session) {
+                const response = await axios.post(`http://${databaseEndpoint}/users`, { userId: userId, email: dbUserEmail, name: dbUserName });
+                console.log("Created User:", response.data);
+                const expireAt = new Date();
+                expireAt.setMinutes(expireAt.getMinutes() + 1); // Add 20 minutes
+
+                // Mutate the expireAt property of the session
+                session.expireAt = expireAt;
+                navigate(`/dashboard`);
+            }
 
             //add in error handling to check if user was created, if not, display error message and have user re signup
         };
 
         if (userId && isLoaded)
             createUser();
-    }, [userId, isLoaded]);
+    }, [userId, isLoaded, session]);
 
     const steps = (step: SignUpStep) => {
         switch (step) {
