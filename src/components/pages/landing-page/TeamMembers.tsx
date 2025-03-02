@@ -1,11 +1,6 @@
+import { Card, CardContent, Avatar, AvatarImage, AvatarFallback } from '../../ui'
 import { NavBar } from '../NavBar'
 import { teamMembers, UserLocation } from '../constants-types'
-import {
-  Card,
-  CardContent
-} from "@/components/ui/card"
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export const TeamMembers = () => {
 

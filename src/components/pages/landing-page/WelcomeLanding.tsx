@@ -1,8 +1,6 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Separator } from "../../ui";
 import { UserLocation } from "../constants-types"
 import { NavBar } from "../NavBar"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@radix-ui/react-separator"
 import { useNavigate } from "react-router-dom"
 
 export const WelcomeLanding = () => {

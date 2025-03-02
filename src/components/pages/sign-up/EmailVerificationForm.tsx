@@ -1,27 +1,26 @@
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { z } from 'zod';
-import { useForm } from "react-hook-form";
+import { Form, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from '../../ui/input'
-import { Button } from '../../ui/button'
 import { handleEmailVerification } from "./SignUpModel";
 import { useState } from "react";
 import { useClerk } from "@clerk/clerk-react";
 import { Terminal } from "lucide-react";
+import {
+    Card,
+    CardHeader,
+    CardTitle,
+    CardContent,
+    Alert,
+    AlertTitle,
+    AlertDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormControl,
+    Input,
+    FormMessage,
+    Button
+} from '../../ui';
 
 const formSchema = z
     .object({

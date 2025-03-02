@@ -1,14 +1,6 @@
-import {
-    NavigationMenu,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-} from "@/components/ui/navigation-menu";
-import { Button } from "../ui/button";
 import { UserLocation } from "./constants-types";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-
 import {
     AlertDialog,
     AlertDialogAction,
@@ -19,7 +11,13 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+    Button,
+    NavigationMenu,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList
+} from "../ui";
+
 
 interface NavigationBarProps {
     userLocation?: UserLocation;
