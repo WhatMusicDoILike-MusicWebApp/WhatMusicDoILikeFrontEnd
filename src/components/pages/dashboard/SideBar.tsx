@@ -8,7 +8,6 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-    SidebarRail,
 } from "@/components/ui/sidebar"
 import { CirclePlay, LogOut, Music, Search, SquareUser } from "lucide-react"
 
@@ -76,7 +75,6 @@ export const SideBar = ({ name }: SideBarProps): JSX.Element => {
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarFooter>
-            <SidebarRail className=" bg-black dark:bg-zinc-900 text-gray-900 dark:text-black hover:text-black" />
         </Sidebar >
     )
 }

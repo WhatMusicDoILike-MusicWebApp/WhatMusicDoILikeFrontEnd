@@ -2,7 +2,7 @@ import { SidebarProvider } from "@/components/ui/sidebar"
 import { SideBar } from "./SideBar"
 
 import { useClerk, useSession } from "@clerk/clerk-react"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { DashboardBanner } from "./DashboardBanner"
 
 export const DashboardPage = (): JSX.Element => {
