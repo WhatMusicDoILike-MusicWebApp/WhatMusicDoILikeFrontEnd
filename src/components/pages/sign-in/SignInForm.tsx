@@ -115,7 +115,7 @@ export const SignInForm = (): JSX.Element => {
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
-                                        <Input className="text-black" placeholder="Password" {...field} />
+                                        <Input className="text-black" placeholder="Password" type="password" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
