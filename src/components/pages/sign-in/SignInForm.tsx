@@ -1,24 +1,24 @@
 import {
     Card,
-    CardContent,
     CardHeader,
     CardTitle,
-    CardDescription
-} from "@/components/ui/card"
-import {
-    Form,
-    FormControl,
+    CardDescription,
+    CardContent,
+    Alert,
+    AlertTitle,
+    AlertDescription,
     FormField,
     FormItem,
     FormLabel,
+    FormControl,
+    Input,
     FormMessage,
-} from "@/components/ui/form";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+    Button,
+    Form
+} from '../../ui';
 import { z } from 'zod';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from '../../ui/input'
-import { Button } from '../../ui/button'
 import { useEffect, useState } from "react";
 import { useAuth, useClerk, useSession } from "@clerk/clerk-react";
 import { Terminal } from "lucide-react";
@@ -55,8 +55,6 @@ export const SignInForm = (): JSX.Element => {
 
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
 
-        console.log("successful verify: " + values);
-
         if (!isSignedIn) {
             await handleSignIn({
                 email: values.email,
@@ -66,9 +64,7 @@ export const SignInForm = (): JSX.Element => {
                 navigate,
                 clerk,
             });
-            console.log('User signed in successfully');
         } else {
-            console.log('User already signed in');
             navigate(`/dashboard/${userId}`);
         }
 
