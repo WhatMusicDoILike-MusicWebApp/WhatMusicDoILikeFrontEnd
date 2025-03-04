@@ -5,6 +5,7 @@ import axios from "axios";
 import { DashboardBanner } from "./DashboardBanner";
 import { SideBar } from "./SideBar";
 import { Button, SidebarProvider } from "../../ui";
+import { FetchMusicDataResponse } from "../constants-types";
 
 export const DashboardPage = (): JSX.Element => {
 
@@ -32,9 +33,13 @@ export const DashboardPage = (): JSX.Element => {
     };
 
     const fetchMusicData = async () => {
-        console.log('code: ' + code);
-        const response = await axios.post('http://127.0.0.1:5000/spotify/fetchUserData', { code: code, userId: userId });
-        console.log('reponse' + response);
+        try {
+            console.log('code: ' + code);
+            const response = await axios.post<FetchMusicDataResponse>('http://127.0.0.1:5000/spotify/fetchUserData', { code: code, userId: userId });
+            console.log('response: ', response.data);
+        } catch (error) {
+            console.log('Error: ' + error);
+        }
     }
 
     return (

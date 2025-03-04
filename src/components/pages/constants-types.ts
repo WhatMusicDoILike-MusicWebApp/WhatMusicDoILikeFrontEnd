@@ -57,3 +57,13 @@ export const teamMembers = [
         bio: "Iker works with setting up all API endpoints.",
     },
 ];
+
+interface Playlist {
+    playlistName: string;
+    tracks: string[];
+}
+
+export interface FetchMusicDataResponse {
+    userId: string;
+    playlists: Playlist[];
+}
