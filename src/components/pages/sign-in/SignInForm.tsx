@@ -41,7 +41,6 @@ export const SignInForm = (): JSX.Element => {
 
     const clerk = useClerk();
     const { isLoaded, isSignedIn } = useSession();
-    const { userId } = useAuth();
     const navigate = useNavigate();
 
     const signInForm = useForm<z.infer<typeof formSchema>>({
@@ -65,7 +64,7 @@ export const SignInForm = (): JSX.Element => {
                 clerk,
             });
         } else {
-            navigate(`/dashboard/${userId}`);
+            navigate(`/dashboard`);
         }
 
     };
