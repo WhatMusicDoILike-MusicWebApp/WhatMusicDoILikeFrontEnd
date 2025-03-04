@@ -24,6 +24,7 @@ import { useClerk, useSession } from "@clerk/clerk-react";
 import { Terminal } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { handleSignIn } from "./SignInModel";
+import { Loader2 } from "lucide-react"
 
 const formSchema = z
     .object({
@@ -37,6 +38,7 @@ const formSchema = z
 
 export const SignInForm = (): JSX.Element => {
     const [isError, setIsError] = useState<boolean>(false);
+    const [isSignInFormLoading, setIsSignInFormLoading] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState('');
 
     const clerk = useClerk();
@@ -53,6 +55,7 @@ export const SignInForm = (): JSX.Element => {
 
 
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+        setIsSignInFormLoading(true);
 
         if (!isSignedIn) {
             await handleSignIn({
@@ -63,7 +66,9 @@ export const SignInForm = (): JSX.Element => {
                 navigate,
                 clerk,
             });
+            setIsSignInFormLoading(false);
         } else {
+            setIsSignInFormLoading(false);
             navigate(`/dashboard`);
         }
 
@@ -122,7 +127,10 @@ export const SignInForm = (): JSX.Element => {
                         />
 
                         <div className='flex justify-end mr-2'>
-                            <Button type="submit" className="hover:bg-zinc-900 transition-all duration-300 hover:scale-105">Sign In</Button>
+                            <Button type="submit" className="hover:bg-zinc-900 transition-all duration-300 hover:scale-105" disabled={isSignInFormLoading}>
+                                Sign In
+                                {isSignInFormLoading && <Loader2 className="animate-spin" />}
+                            </Button>
                         </div>
                     </form>
                 </Form>

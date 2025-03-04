@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useClerk } from "@clerk/clerk-react";
 import { SignUpStep } from "../constants-types";
 import { handleSignUp } from "./SignUpModel";
-import { Terminal } from "lucide-react";
+import { Loader2, Terminal } from "lucide-react";
 import {
     Alert,
     AlertDescription,
@@ -54,12 +54,14 @@ interface SignUpFormProps {
 export const SignUpForm = ({ setCurrentStep, setDBUserName, setDBUserEmail }: SignUpFormProps): JSX.Element => {
     const [isError, setIsError] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>('');
+    const [isCreateAccountLoading, setIsCreateAccountLoading] = useState<boolean>(false);
 
     const clerk = useClerk();
 
     const handleSubmit = async (values: z.infer<typeof formSchema>): Promise<void> => {
 
         try {
+            setIsCreateAccountLoading(true);
             await handleSignUp(values.email, values.password, setCurrentStep, setIsError, setErrorMessage, clerk);
             setDBUserEmail(values.email);
             setDBUserName(`${values.name}`);
@@ -68,6 +70,7 @@ export const SignUpForm = ({ setCurrentStep, setDBUserName, setDBUserEmail }: Si
             setIsError(true);
             setErrorMessage('An unexpected error occurred.');
         } finally {
+            setIsCreateAccountLoading(false);
             signUpForm.reset();
         }
     };
@@ -156,12 +159,14 @@ export const SignUpForm = ({ setCurrentStep, setDBUserName, setDBUserEmail }: Si
                         />
 
                         <div className='flex justify-end mr-2'>
-                            <Button type="submit" className="hover:bg-zinc-900 transition-all duration-300 hover:scale-105">Create Account</Button>
+                            <Button type="submit" className="hover:bg-zinc-900 transition-all duration-300 hover:scale-105" disabled={isCreateAccountLoading}>
+                                Create Account
+                                {isCreateAccountLoading && <Loader2 className="animate-spin" />}
+                            </Button>
                         </div>
                     </form>
                 </Form>
             </CardContent>
         </Card>
-
     )
 }

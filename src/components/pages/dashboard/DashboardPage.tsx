@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth, useClerk, useSession } from "@clerk/clerk-react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
@@ -6,8 +6,10 @@ import { DashboardBanner } from "./DashboardBanner";
 import { SideBar } from "./SideBar";
 import { Button, SidebarProvider } from "../../ui";
 import { FetchMusicDataResponse } from "../constants-types";
+import { Loader2 } from "lucide-react";
 
 export const DashboardPage = (): JSX.Element => {
+    const [isFetchLoading, setIsFetchLoading] = useState<boolean>(false);
 
     const clerk = useClerk();
     const { session } = useSession();
@@ -33,12 +35,16 @@ export const DashboardPage = (): JSX.Element => {
     };
 
     const fetchMusicData = async () => {
+        setIsFetchLoading(true);
         try {
             console.log('code: ' + code);
             const response = await axios.post<FetchMusicDataResponse>('http://127.0.0.1:5000/spotify/fetchUserData', { code: code, userId: userId });
             console.log('response: ', response.data);
         } catch (error) {
+            setIsFetchLoading(false);
             console.log('Error: ' + error);
+        } finally {
+            setIsFetchLoading(false);
         }
     }
 
@@ -51,7 +57,10 @@ export const DashboardPage = (): JSX.Element => {
                     Hello! This is the Dashboard Page.
 
                     <Button onClick={() => handleSpotifyAuthClick()}>Auth</Button>
-                    <Button onClick={() => fetchMusicData()}>Fetch</Button>
+                    <Button onClick={() => fetchMusicData()} disabled={isFetchLoading}>
+                        Fetch
+                        {isFetchLoading && <Loader2 className="animate-spin" />}
+                    </Button>
                 </div>
             </main>
         </SidebarProvider>

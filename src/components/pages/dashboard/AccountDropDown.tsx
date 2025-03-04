@@ -21,15 +21,24 @@ import {
     AlertDialogCancel,
     AlertDialogAction
 } from '../../ui'
+import { Loader2 } from "lucide-react";
 
 export const AccountDropDown = (): JSX.Element => {
     const [isDropDownMenuOpen, setIsDropDownMenuOpen] = useState<boolean>(false);
     const [isSignOutModalOpen, setIsSignOutModalOpen] = useState<boolean>(false);
+    const [isSignOutLoading, setIsSignOutLoading] = useState<boolean>(false);
 
     const clerk = useClerk();
 
     const handleSignOutConfirmClick = () => {
-        clerk.signOut();
+        try {
+            setIsSignOutLoading(true);
+            clerk.signOut();
+        } catch (error) {
+            console.log('Error: ' + error);
+        } finally {
+            setIsSignOutModalOpen(false);
+        }
     };
 
     const handleSignOutButtonClick = () => {
@@ -67,7 +76,10 @@ export const AccountDropDown = (): JSX.Element => {
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
                                     <AlertDialogCancel className="text-gray-100" onClick={() => setIsSignOutModalOpen(false)}>Cancel</AlertDialogCancel>
-                                    <AlertDialogAction onClick={handleSignOutConfirmClick}>Continue</AlertDialogAction>
+                                    <AlertDialogAction onClick={handleSignOutConfirmClick} disabled={isSignOutLoading}>
+                                        Continue
+                                        {isSignOutLoading && <Loader2 className="animate-spin" />}
+                                    </AlertDialogAction>
                                 </AlertDialogFooter>
                             </AlertDialogContent>
                         </AlertDialog>
