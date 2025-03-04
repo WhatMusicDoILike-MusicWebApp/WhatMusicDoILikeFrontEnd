@@ -20,7 +20,7 @@ import { z } from 'zod';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
-import { useAuth, useClerk, useSession } from "@clerk/clerk-react";
+import { useClerk, useSession } from "@clerk/clerk-react";
 import { Terminal } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { handleSignIn } from "./SignInModel";
