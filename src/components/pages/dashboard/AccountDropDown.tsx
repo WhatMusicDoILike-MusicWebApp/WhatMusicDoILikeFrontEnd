@@ -49,6 +49,12 @@ export const AccountDropDown = (): JSX.Element => {
         setIsSignOutModalOpen(true);
     };
 
+    const fetchUserData = async() => {
+        try {
+            const response = await fetch()
+        }
+    }
+
     return (
         <div className="flex flex-row items-center pr-6">
 
