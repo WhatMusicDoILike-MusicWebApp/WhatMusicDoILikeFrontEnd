@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Form, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { handleEmailVerification } from "./SignUpModel";
 import { useState } from "react";
@@ -13,6 +13,7 @@ import {
     Alert,
     AlertTitle,
     AlertDescription,
+    Form,
     FormField,
     FormItem,
     FormLabel,
