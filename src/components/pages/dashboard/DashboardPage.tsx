@@ -47,6 +47,11 @@ export const DashboardPage = (): JSX.Element => {
             setIsFetchLoading(false);
         }
     }
+    const fetchYtMusic = async () => {
+        console.log('code: ' + code);
+        const response = await axios.post('http://127.0.0.1:5000/youtube/yt_auth', { });
+        console.log('reponse' + JSON.stringify(response));
+    }
 
     return (
         <SidebarProvider defaultOpen={true}>
@@ -61,6 +66,7 @@ export const DashboardPage = (): JSX.Element => {
                         Fetch
                         {isFetchLoading && <Loader2 className="animate-spin" />}
                     </Button>
+                    <Button onClick={() => fetchYtMusic()}>Youtube Fetch</Button>
                 </div>
             </main>
         </SidebarProvider>
