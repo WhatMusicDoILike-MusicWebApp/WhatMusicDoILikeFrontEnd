@@ -18,6 +18,7 @@ export const DashboardPage = (): JSX.Element => {
     const code = searchParams.get('code');
 
     console.log('session: ' + session?.expireAt);
+    console.log('userId: ' + userId);
 
     if (code)
         console.log('code: ' + code);
@@ -50,7 +51,7 @@ export const DashboardPage = (): JSX.Element => {
 
     return (
         <SidebarProvider defaultOpen={true}>
-            <SideBar name='Maayan' />
+            <SideBar />
             <main className="flex flex-col h-screen w-full bg-gradient-to-b from-black via-gray-500 to-white">
                 <DashboardBanner />
                 <div className="pt-32 p-8 flex items-start justify-center h-screen bg-cover bg-center bg-gradient-to-b from-black via-gray-500 to-white">

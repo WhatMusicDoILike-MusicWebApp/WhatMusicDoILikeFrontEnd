@@ -10,24 +10,15 @@ import {
     SidebarMenuItem,
     SidebarRail,
 } from "../../ui"
-import { CirclePlay, LogOut, Music, Search, SquareUser } from "lucide-react"
+import { CirclePlay, LogOut, Music, SquareUser } from "lucide-react"
 
-interface SideBarProps {
-    name: string;
-}
-
-export const SideBar = ({ name }: SideBarProps): JSX.Element => {
+export const SideBar = (): JSX.Element => {
 
     const items = [
         {
-            title: "Apple Music",
-            url: "#",
-            icon: Music,
-        },
-        {
             title: "Spotify",
             url: "#",
-            icon: Search,
+            icon: Music,
         },
         {
             title: "Youtube Music",
@@ -38,7 +29,6 @@ export const SideBar = ({ name }: SideBarProps): JSX.Element => {
             title: "Transfer",
             url: "#",
             icon: SquareUser,
-            onclick: () => console.log("Transfer"),
         },
     ]
 
@@ -46,12 +36,12 @@ export const SideBar = ({ name }: SideBarProps): JSX.Element => {
         <Sidebar collapsible="icon" className=" text-[var(--sidebar - foreground)]">
             < SidebarContent className=" bg-white dark:bg-zinc-900 text-gray-900 dark:text-gray-100 ">
                 <SidebarGroup>
-                    <SidebarGroupLabel className="text-gray-900 dark:text-gray-100 ">Welcome {name}!</SidebarGroupLabel>
+                    <SidebarGroupLabel className="text-gray-900 dark:text-gray-100 ">WhatMusicDoILike?</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild onClick={item.onclick}>
+                                    <SidebarMenuButton asChild >
                                         <a href={item.url} className="flex items-center gap-2 hover:text-black dark:hover:text-black transition-colors">
                                             <item.icon className="text-gray-500 dark:text-gray-400 transition-colors" strokeWidth={3} />
                                             <span>{item.title}</span>
