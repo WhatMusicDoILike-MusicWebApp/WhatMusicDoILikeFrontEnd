@@ -67,3 +67,16 @@ export interface FetchMusicDataResponse {
     userId: string;
     playlists: Playlist[];
 }
+
+export enum MainContent {
+    Spotify = 'Spotify',
+    YoutubeMusic = 'YoutubeMusic',
+    Transfer = 'Transfer',
+}
+
+export interface User {
+    userId: string;
+    email: string;
+    name: string;
+    spotifyAuth: boolean;
+}
