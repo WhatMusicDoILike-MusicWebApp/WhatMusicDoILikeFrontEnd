@@ -1,7 +1,7 @@
 # WhatMusicDoILike? Frontend
 
 ## Overview
-This is a modern music playlist trasnfer service front-end application built using React and TypeScript. The project utilizes ShadCN for UI components, TailwindCSS for styling, and Clerk for authentication.
+This is a modern music playlist transfer service front-end application built using React and TypeScript. The project utilizes ShadCN for UI components, TailwindCSS for styling, and Clerk for authentication.
 
 ## Technologies Used
 - **React** – Component-based UI development
