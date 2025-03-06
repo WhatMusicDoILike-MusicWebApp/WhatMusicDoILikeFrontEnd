@@ -18,7 +18,7 @@ export const DashboardPage = (): JSX.Element => {
     const code = searchParams.get('code');
 
     console.log('session: ' + session?.expireAt);
-    console.log('userId: ' + userId);
+    console.log('userId:  ' + userId);
 
     if (code)
         console.log('code: ' + code);
