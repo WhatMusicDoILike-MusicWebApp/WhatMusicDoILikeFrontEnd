@@ -10,7 +10,7 @@ import axios from "axios";
 
 export const DashboardPage = (): JSX.Element => {
     const [currentMainContent, setCurrentMainContent] = useState<MainContent>(MainContent.Spotify);
-    const [user, setUser] = useState<User>({ userId: '', email: '', name: '', spotifyAuth: false });
+    const [userInfo, setUserInfo] = useState<User>({ userId: '', email: '', name: '', spotifyAuth: false });
 
     const clerk = useClerk();
     const { session } = useSession();
@@ -20,7 +20,7 @@ export const DashboardPage = (): JSX.Element => {
     const mainContent = (content: MainContent) => {
         switch (content) {
             case MainContent.Spotify:
-                return <SpotifyContent />;
+                return <SpotifyContent isSpotifyConnected={userInfo.spotifyAuth} />;
             case MainContent.YoutubeMusic:
                 return <>YoutubeMusic</>;
             case MainContent.Transfer:
@@ -53,10 +53,14 @@ export const DashboardPage = (): JSX.Element => {
                 const email = response.data.email;
                 const spotifyAuth = response.data.spotifyAuth != null;
                 if (userId)
-                    setUser({ userId: userId, email: email, name: name, spotifyAuth: spotifyAuth });
+                    setUserInfo({ userId: userId, email: email, name: name, spotifyAuth: spotifyAuth });
             } catch (error) {
                 console.log('Error: ' + error);
+            } finally {
+                console.log('User Info: ' + userInfo);
             }
+
+
         }
 
         fetchUser();
