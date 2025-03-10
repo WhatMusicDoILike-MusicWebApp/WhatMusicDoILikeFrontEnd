@@ -67,3 +67,10 @@ export interface FetchMusicDataResponse {
     userId: string;
     playlists: Playlist[];
 }
+
+export interface User {
+    userId: string;
+    email: string;
+    name: string;
+    spotifyAuth: boolean;
+}
