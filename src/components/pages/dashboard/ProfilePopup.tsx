@@ -27,16 +27,16 @@ import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react"
 import axios from 'axios';
 import { handleSignIn } from './PopupModel';
-import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogTrigger, AlertDialogAction} from '@radix-ui/react-alert-dialog';
+import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogTrigger, AlertDialogAction, AlertDialogTitle} from '@radix-ui/react-alert-dialog';
 import { User } from '../constants-types';
 
 const formSchema = z
     .object({
-        email: z.string().min(2, {
-            message: "Not a valid email address.",
+        email: z.string().min(1, {
+            message: "Please add an email.",
         }).email("Invalid email."),
-        password: z.string().min(8, {
-            message: "Password must be at least 8 characters.",
+        name: z.string().min(1, {
+            message: "Cannot be empty.",
         }),
     })
     
@@ -50,40 +50,11 @@ export const  ProfilePopup= (): JSX.Element => {
     const { isLoaded, isSignedIn } = useSession();
     const navigate = useNavigate();
 
-    const signInForm = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            password: "",
-            email: "",
-        },
-    });
-
-    const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-        setIsSignInFormLoading(true);
-
-        if (!isSignedIn) {
-            await handleSignIn({
-                email: values.email,
-                password: values.password,
-                setIsError,
-                setErrorMessage,
-                navigate,
-                clerk,
-            });
-            setIsSignInFormLoading(false);
-        } else {
-            setIsSignInFormLoading(false);
-            navigate(`/dashboard`);
-        }
-
-    };
-
     const { userId } = useAuth();
     const [userInfo, setUserInfo] = useState<User>({ userId: '', email: '', name: '', spotifyAuth: false });
     
     useEffect(() => {
         const fetchUser = async () => {
-    
             try {
                 const response = await axios.get('http://127.0.0.1:5000/users?userId=' + userId);
                 console.log('response: ', response.data);
@@ -101,6 +72,39 @@ export const  ProfilePopup= (): JSX.Element => {
         fetchUser();
     }, []);
 
+    const signInForm = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+    });
+
+    useEffect(() => {
+        if (userInfo.name && userInfo.email) {
+            signInForm.reset({
+                name: userInfo.name,
+                email: userInfo.email,
+            });
+        }
+    }, []);
+
+    const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+        setIsSignInFormLoading(true);
+
+        if (!isSignedIn) {
+            await handleSignIn({
+                email: values.email,
+                password: values.name,
+                setIsError,
+                setErrorMessage,
+                navigate,
+                clerk,
+            });
+            setIsSignInFormLoading(false);
+        } else {
+            setIsSignInFormLoading(false);
+            navigate(`/dashboard`);
+        }
+
+    };
+
     useEffect(() => {
         if (isSignedIn && isLoaded) {
             navigate(`/dashboard`);
@@ -110,11 +114,12 @@ export const  ProfilePopup= (): JSX.Element => {
     return (
         <AlertDialog>
             <AlertDialogTrigger>Profile</AlertDialogTrigger>
+            <AlertDialogTitle></AlertDialogTitle>
             <AlertDialogContent>
-                <Card className=" flex flex-col w-2/3 shadow-lg dark:bg-zinc-900 text-gray-900 dark:text-gray-100 text-start border-0 motion-opacity-in-0">
+                <Card className=" flex flex-col dark:text-gray-900 text-gray-100 text-start border-0 motion-opacity-in-0 shadow-none">
                     <CardHeader className="text-center">
                         <CardTitle className="text-3xl font-bold">Profile</CardTitle>
-                        <CardDescription>Edit Account</CardDescription>
+                        <CardDescription>Edit Profile.</CardDescription>
                     </CardHeader>
 
                     <CardContent>
@@ -130,12 +135,12 @@ export const  ProfilePopup= (): JSX.Element => {
 
                                 <FormField
                                     control={signInForm.control}
-                                    name="password"
+                                    name="name"
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>Name</FormLabel>
                                             <FormControl>
-                                                <Input className="text-black" placeholder = {userInfo.name} {...field} />
+                                                <Input className="text-black" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -149,26 +154,28 @@ export const  ProfilePopup= (): JSX.Element => {
                                         <FormItem>
                                             <FormLabel>Email</FormLabel>
                                             <FormControl>
-                                                <Input className="text-black" placeholder= {userInfo.email} type="password" {...field} />
+                                                <Input className="text-black" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
                                     )}
                                 />
 
-                                <div className='flex justify-end mr-2'>
-                                    <Button type="submit" className="hover:bg-zinc-900 transition-all duration-300 hover:scale-105" disabled={isSignInFormLoading}>
-                                        Sign In
-                                        {isSignInFormLoading && <Loader2 className="animate-spin" />}
-                                    </Button>
-                                </div>
+                                
                             </form>
                         </Form>
                     </CardContent>
                 </Card>
                 <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction>Change</AlertDialogAction>
+                <AlertDialogAction>
+                    <div className='flex justify-end mr-2'>
+                        <Button type="submit" className="hover:bg-zinc-900 transition-all duration-300 hover:scale-105" disabled={isSignInFormLoading}>
+                            Submit
+                            {isSignInFormLoading && <Loader2 className="animate-spin" />}
+                        </Button>
+                    </div>
+                </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
             </AlertDialog>

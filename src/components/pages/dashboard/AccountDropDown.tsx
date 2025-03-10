@@ -61,8 +61,7 @@ export const AccountDropDown = (): JSX.Element => {
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
-                        <ProfilePopup>
-                        </ProfilePopup>
+                        <ProfilePopup/>
                     </DropdownMenuItem>
                     <DropdownMenuItem>Billing</DropdownMenuItem>
                     <DropdownMenuSeparator />
