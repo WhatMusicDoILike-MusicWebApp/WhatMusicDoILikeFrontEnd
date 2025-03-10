@@ -22,6 +22,7 @@ import {
     AlertDialogAction
 } from '../../ui'
 import { Loader2 } from "lucide-react";
+import { ProfilePopup } from "./ProfilePopup";
 
 export const AccountDropDown = (): JSX.Element => {
     const [isDropDownMenuOpen, setIsDropDownMenuOpen] = useState<boolean>(false);
@@ -59,7 +60,10 @@ export const AccountDropDown = (): JSX.Element => {
                 <DropdownMenuContent>
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <ProfilePopup>
+                        </ProfilePopup>
+                    </DropdownMenuItem>
                     <DropdownMenuItem>Billing</DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
