@@ -14,7 +14,7 @@ import { CirclePlay, LogOut, Music, SquareUser } from "lucide-react"
 import { MainContent } from "../constants-types";
 
 interface SideBarProps {
-    setCurrentMainContent: React.Dispatch<React.SetStateAction<MainContent>>;
+    setCurrentMainContent: React.Dispatch<React.SetStateAction<MainContent | null>>;
 }
 
 export const SideBar = ({ setCurrentMainContent }: SideBarProps): JSX.Element => {

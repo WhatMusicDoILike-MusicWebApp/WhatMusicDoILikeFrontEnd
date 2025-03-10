@@ -4,23 +4,22 @@ import { useAuth, useClerk, useSession } from "@clerk/clerk-react";
 import { DashboardBanner } from "./DashboardBanner";
 import { SideBar } from "./SideBar";
 import { SidebarProvider } from "../../ui";
-import { MainContent, User } from "../constants-types";
+import { MainContent, UserResponse } from "../constants-types";
 import { SpotifyContent } from "./SpotifyContent";
 import axios from "axios";
 
 export const DashboardPage = (): JSX.Element => {
-    const [currentMainContent, setCurrentMainContent] = useState<MainContent>(MainContent.Spotify);
-    const [userInfo, setUserInfo] = useState<User>({ userId: '', email: '', name: '', spotifyAuth: false });
+    const [currentMainContent, setCurrentMainContent] = useState<MainContent | null>(null);
+    const [userInfo, setUserInfo] = useState<UserResponse>({ userId: '', email: '', name: '', spotifyAuthToken: '', spotifyRefreshToken: '' });
 
     const clerk = useClerk();
     const { session } = useSession();
     const { userId } = useAuth();
 
-
-    const mainContent = (content: MainContent) => {
+    const mainContent = (content: MainContent | null) => {
         switch (content) {
             case MainContent.Spotify:
-                return <SpotifyContent isSpotifyConnected={userInfo.spotifyAuth} />;
+                return <SpotifyContent userInfo={userInfo} setUserInfo={setUserInfo} />;
             case MainContent.YoutubeMusic:
                 return <>YoutubeMusic</>;
             case MainContent.Transfer:
@@ -34,9 +33,6 @@ export const DashboardPage = (): JSX.Element => {
         }
     }
 
-    console.log('session: ' + session?.expireAt);
-    console.log('userId:     ' + userId);
-
     useEffect(() => {
         if (session?.expireAt && session.expireAt < new Date()) {
             clerk.signOut();
@@ -47,24 +43,25 @@ export const DashboardPage = (): JSX.Element => {
         const fetchUser = async () => {
 
             try {
-                const response = await axios.get('http://127.0.0.1:5000/users?userId=' + userId);
-                console.log('response: ', response.data);
-                const name = response.data.name;
-                const email = response.data.email;
-                const spotifyAuth = response.data.spotifyAuth != null;
-                if (userId)
-                    setUserInfo({ userId: userId, email: email, name: name, spotifyAuth: spotifyAuth });
+                await axios.get<UserResponse>('http://127.0.0.1:5000/users?userId=' + userId).then(response => {
+                    const setUserConfig = {
+                        userId: response.data.userId,
+                        email: response.data.email,
+                        name: response.data.name,
+                        spotifyAuthToken: response.data.spotifyAuthToken,
+                        spotifyRefreshToken: response.data.spotifyRefreshToken
+                    }
+                    setUserInfo(setUserConfig);
+                });
             } catch (error) {
                 console.log('Error: ' + error);
-            } finally {
-                console.log('User Info: ' + userInfo);
             }
-
 
         }
 
-        fetchUser();
-    }, []);
+        if (userId != '' && userId != null && userId != undefined)
+            fetchUser();
+    }, [userId]);
 
     return (
         <SidebarProvider defaultOpen={true}>

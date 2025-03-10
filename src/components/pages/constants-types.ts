@@ -2,7 +2,6 @@ export enum UserLocation {
     LANDING,
     SIGNUP,
     LOGIN,
-    DASHBOARD,
 }
 
 export enum SignUpStep {
@@ -74,9 +73,10 @@ export enum MainContent {
     Transfer = 'Transfer',
 }
 
-export interface User {
+export interface UserResponse {
     userId: string;
     email: string;
     name: string;
-    spotifyAuth: boolean;
+    spotifyAuthToken: string;
+    spotifyRefreshToken: string;
 }
