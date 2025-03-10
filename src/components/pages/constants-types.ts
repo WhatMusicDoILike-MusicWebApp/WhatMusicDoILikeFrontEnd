@@ -2,7 +2,6 @@ export enum UserLocation {
     LANDING,
     SIGNUP,
     LOGIN,
-    DASHBOARD,
 }
 
 export enum SignUpStep {
@@ -66,4 +65,18 @@ interface Playlist {
 export interface FetchMusicDataResponse {
     userId: string;
     playlists: Playlist[];
+}
+
+export enum MainContent {
+    Spotify = 'Spotify',
+    YoutubeMusic = 'YoutubeMusic',
+    Transfer = 'Transfer',
+}
+
+export interface UserResponse {
+    userId: string;
+    email: string;
+    name: string;
+    spotifyAuthToken: string;
+    spotifyRefreshToken: string;
 }
