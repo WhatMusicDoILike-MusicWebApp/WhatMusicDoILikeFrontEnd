@@ -76,14 +76,14 @@ export const  ProfilePopup= (): JSX.Element => {
         resolver: zodResolver(formSchema),
     });
 
-    useEffect(() => {
-        if (userInfo.name && userInfo.email) {
-            signInForm.reset({
-                name: userInfo.name,
-                email: userInfo.email,
-            });
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (userInfo.name && userInfo.email) {
+    //         signInForm.reset({
+    //             name: userInfo.name,
+    //             email: userInfo.email,
+    //         });
+    //     }
+    // }, []);
 
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         setIsSignInFormLoading(true);
@@ -111,9 +111,18 @@ export const  ProfilePopup= (): JSX.Element => {
         }
     }, [isSignedIn, isLoaded]);
 
+    const handleProfile = () => {
+        if (userInfo.name && userInfo.email) {
+            signInForm.reset({
+                name: userInfo.name,
+                email: userInfo.email,
+            });
+        }
+    };
+
     return (
         <AlertDialog>
-            <AlertDialogTrigger>Profile</AlertDialogTrigger>
+            <AlertDialogTrigger onClick={handleProfile}>Profile</AlertDialogTrigger>
             <AlertDialogTitle></AlertDialogTitle>
             <AlertDialogContent>
                 <Card className=" flex flex-col dark:text-gray-900 text-gray-100 text-start border-0 motion-opacity-in-0 shadow-none">
