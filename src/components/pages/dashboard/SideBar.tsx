@@ -11,8 +11,13 @@ import {
     SidebarRail,
 } from "../../ui"
 import { CirclePlay, LogOut, Music, SquareUser } from "lucide-react"
+import { MainContent } from "../constants-types";
 
-export const SideBar = (): JSX.Element => {
+interface SideBarProps {
+    setCurrentMainContent: React.Dispatch<React.SetStateAction<MainContent | null>>;
+}
+
+export const SideBar = ({ setCurrentMainContent }: SideBarProps): JSX.Element => {
 
     const items = [
         {
@@ -32,6 +37,22 @@ export const SideBar = (): JSX.Element => {
         },
     ]
 
+    const handleSideBarItemClick = (title: string) => {
+        switch (title) {
+            case "Spotify":
+                setCurrentMainContent(MainContent.Spotify);
+                break;
+            case "Youtube Music":
+                setCurrentMainContent(MainContent.YoutubeMusic);
+                break;
+            case "Transfer":
+                setCurrentMainContent(MainContent.Transfer);
+                break;
+            default:
+                break;
+        }
+    }
+
     return (
         <Sidebar collapsible="icon" className=" text-[var(--sidebar - foreground)]">
             < SidebarContent className=" bg-white dark:bg-zinc-900 text-gray-900 dark:text-gray-100 ">
@@ -41,7 +62,7 @@ export const SideBar = (): JSX.Element => {
                         <SidebarMenu>
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild >
+                                    <SidebarMenuButton asChild onClick={() => handleSideBarItemClick(item.title)}>
                                         <a href={item.url} className="flex items-center gap-2 hover:text-black dark:hover:text-black transition-colors">
                                             <item.icon className="text-gray-500 dark:text-gray-400 transition-colors" strokeWidth={3} />
                                             <span>{item.title}</span>
