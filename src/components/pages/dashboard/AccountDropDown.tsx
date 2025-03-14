@@ -35,10 +35,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useForm } from "react-hook-form";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { User } from "../constants-types";
-import { handleSignIn } from "./PopupModel";
+import { UserResponse } from "../constants-types";
 
 const formSchema = z
     .object({
@@ -50,10 +47,21 @@ const formSchema = z
         }),
     })
 
-export const AccountDropDown = (): JSX.Element => {
+interface AccountDropdownProps {
+    userInfo: UserResponse;
+    setUserInfo: React.Dispatch<React.SetStateAction<UserResponse>>;
+}
+
+export const AccountDropDown = ({userInfo, setUserInfo} : AccountDropdownProps): JSX.Element => {
     const [isDropDownMenuOpen, setIsDropDownMenuOpen] = useState<boolean>(false);
+    const [isProfileUpdateOpen, setIsProfileUpdateOpen] = useState<boolean>(false);
     const [isSignOutModalOpen, setIsSignOutModalOpen] = useState<boolean>(false);
     const [isSignOutLoading, setIsSignOutLoading] = useState<boolean>(false);
+
+    const [isError, setIsError] = useState<boolean>(false);
+    const [ errorMessage, setErrorMessage] = useState('');
+
+    const { userId } = useAuth();
 
     const clerk = useClerk();
 
@@ -73,81 +81,29 @@ export const AccountDropDown = (): JSX.Element => {
         setIsSignOutModalOpen(true);
     };
 
-    const [isError, setIsError] = useState<boolean>(false);
-    const [ isSignInFormLoading, setIsSignInFormLoading] = useState<boolean>(false);
-    const [ errorMessage, setErrorMessage] = useState('');
-    const { isLoaded, isSignedIn } = useSession();
-    const navigate = useNavigate();
-
-    const { userId } = useAuth();
-    const [userInfo, setUserInfo] = useState<User>({ userId: '', email: '', name: '', spotifyAuth: false });
-    
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const response = await axios.get('http://127.0.0.1:5000/users?userId=' + userId);
-                console.log('response: ', response.data);
-                const name = response.data.name;
-                const email = response.data.email;
-                const spotifyAuth = response.data.spotifyAuth != null;
-                if (userId)
-                    setUserInfo({ userId: userId, email: email, name: name, spotifyAuth: spotifyAuth });
-            } catch (error) {
-                console.log('Error: ' + error);
-            } finally {
-                console.log('User Info: ' + userInfo);
-            }    
-        }
-        fetchUser();
-    }, []);
-
-    const signInForm = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-    });
-
-    // useEffect(() => {
-    //     if (userInfo.name && userInfo.email) {
-    //         signInForm.reset({
-    //             name: userInfo.name,
-    //             email: userInfo.email,
-    //         });
-    //     }
-    // }, []);
-
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-        setIsSignInFormLoading(true);
-
-        if (!isSignedIn) {
-            await handleSignIn({
-                email: values.email,
-                password: values.name,
-                setIsError,
-                setErrorMessage,
-                navigate,
-                clerk,
-            });
-            setIsSignInFormLoading(false);
-        } else {
-            setIsSignInFormLoading(false);
-            navigate(`/dashboard`);
-        }
+        console.log(values)
 
     };
 
-    // useEffect(() => {
-    //     if (isSignedIn && isLoaded) {
-    //         navigate(`/dashboard`);
-    //     }
-    // }, [isSignedIn, isLoaded]);
-
-    const handleProfile = () => {
+    const handleProfileButtonClick = () => {
+        setIsDropDownMenuOpen(true);
+        setIsProfileUpdateOpen(true);
         if (userInfo.name && userInfo.email) {
-            signInForm.reset({
+            updateProfileForm.reset({
                 name: userInfo.name,
                 email: userInfo.email,
             });
         }
     };
+
+    const updateProfileForm = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            email: userInfo.email,
+            name: userInfo.name,
+        },
+    });
 
     return (
         <div className="flex flex-row items-center pr-6">
@@ -163,8 +119,8 @@ export const AccountDropDown = (): JSX.Element => {
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
-                        <AlertDialog>
-                            <AlertDialogTrigger onClick={handleProfile}>Profile</AlertDialogTrigger>
+                        <AlertDialog open = {isProfileUpdateOpen}>
+                            <AlertDialogTrigger onClick={handleProfileButtonClick}>Profile</AlertDialogTrigger>
                             <AlertDialogContent>
                                 <AlertDialogHeader>
                                 <AlertDialogTitle className="text-3xl font-bold text-center">Your Profile</AlertDialogTitle>
@@ -177,10 +133,10 @@ export const AccountDropDown = (): JSX.Element => {
                                             {errorMessage}
                                         </AlertDescription>
                                     </Alert>)}
-                                    <Form {...signInForm}>
-                                        <form onSubmit={signInForm.handleSubmit(handleSubmit)} className="space-y-4">
+                                    <Form {...updateProfileForm}>
+                                        <form onSubmit={updateProfileForm.handleSubmit(handleSubmit)} className="space-y-4">
                                             <FormField
-                                                control={signInForm.control}
+                                                control={updateProfileForm.control}
                                                 name="name"
                                                 render={({ field }) => (
                                                     <FormItem>
@@ -194,7 +150,7 @@ export const AccountDropDown = (): JSX.Element => {
                                             />
 
                                             <FormField
-                                                control={signInForm.control}
+                                                control={updateProfileForm.control}
                                                 name="email"
                                                 render={({ field }) => (
                                                     <FormItem>
@@ -211,7 +167,7 @@ export const AccountDropDown = (): JSX.Element => {
                                 </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                <AlertDialogCancel className="text-gray-100">Cancel</AlertDialogCancel>
+                                <AlertDialogCancel className="text-gray-100" onClick={() => setIsProfileUpdateOpen(false)}>Cancel</AlertDialogCancel>
                                 <AlertDialogAction>Submit</AlertDialogAction>
                                 </AlertDialogFooter>
                             </AlertDialogContent>

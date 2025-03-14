@@ -67,7 +67,7 @@ export const DashboardPage = (): JSX.Element => {
         <SidebarProvider defaultOpen={true}>
             <SideBar setCurrentMainContent={setCurrentMainContent} />
             <main className="flex flex-col h-screen w-full bg-gradient-to-b from-black via-gray-500 to-white">
-                <DashboardBanner />
+                <DashboardBanner userInfo={userInfo} setUserInfo={setUserInfo}/>
                 <div className="pt-32 p-8 flex items-start justify-center h-screen bg-cover bg-center bg-gradient-to-b from-black via-gray-500 to-white">
                     {mainContent(currentMainContent)}
                 </div>
