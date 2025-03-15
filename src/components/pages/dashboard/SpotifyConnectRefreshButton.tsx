@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
-import { FetchMusicDataResponse, UserResponse } from "../constants-types";
+import { FetchMusicDataResponse, Playlist, UserResponse } from "../constants-types";
 import { Loader2 } from "lucide-react";
 import axios from "axios";
 import { Button } from "../../ui";
 import { useSearchParams } from "react-router-dom";
 import { useAuth } from "@clerk/clerk-react";
 
-interface SpotifyContentProps {
+interface SpotifyConnectRefreshButtonProps {
     userInfo: UserResponse;
     setUserInfo: React.Dispatch<React.SetStateAction<UserResponse>>;
+    setPlaylistData: React.Dispatch<React.SetStateAction<Playlist[]>>;
 }
 
-export const SpotifyContent = ({ userInfo, setUserInfo }: SpotifyContentProps): JSX.Element => {
+export const SpotifyConnectRefreshButton = ({ userInfo, setUserInfo, setPlaylistData }: SpotifyConnectRefreshButtonProps): JSX.Element => {
     const [isFetchLoading, setIsFetchLoading] = useState<boolean>(false);
+    const [displaySpotifyConnect, setDisplaySpotifyConnect] = useState<boolean>(false);
     const { userId } = useAuth();
 
     const [searchParams] = useSearchParams();
@@ -25,13 +27,18 @@ export const SpotifyContent = ({ userInfo, setUserInfo }: SpotifyContentProps): 
     };
 
     useEffect(() => {
+        if (userInfo.spotifyAuthToken && userInfo.spotifyRefreshToken) {
+            setDisplaySpotifyConnect(false);
+        } else {
+            setDisplaySpotifyConnect(true);
+        }
+    }, [userInfo.spotifyAuthToken, userInfo.spotifyRefreshToken]);
 
+    useEffect(() => {
         const establishSpotifyConnection = async () => {
             try {
                 const response = await axios.post('http://127.0.0.1:5000/spotify/initializeConnection', { userId, code: code });
-
                 setUserInfo({ ...userInfo, spotifyAuthToken: response.data.spotifyAuthToken, spotifyRefreshToken: response.data.spotifyRefreshToken });
-
             } catch (error) {
                 console.log('Error: ' + error);
             }
@@ -50,7 +57,7 @@ export const SpotifyContent = ({ userInfo, setUserInfo }: SpotifyContentProps): 
             setIsFetchLoading(true);
             try {
                 const response = await axios.get<FetchMusicDataResponse>('http://127.0.0.1:5000/spotify/fetchUserData', { params: { userId: userId } });
-                console.log(response.data);
+                setPlaylistData(response.data.playlists);
             } catch (error) {
                 setIsFetchLoading(false);
                 console.log('Error: ' + error);
@@ -62,17 +69,16 @@ export const SpotifyContent = ({ userInfo, setUserInfo }: SpotifyContentProps): 
         fetchMusicData();
     }
 
-    const displaySpotifyConnect = !userInfo.spotifyAuthToken || !userInfo.spotifyRefreshToken;
 
     return (
-        <div>
+        <>
             {displaySpotifyConnect ? (
-                <Button onClick={handleSpotifyAuthClick}>Connect Your Spotify</Button>
+                <Button onClick={handleSpotifyAuthClick}>Connect Spotify</Button>
             ) : (
                 <Button disabled={isFetchLoading} onClick={handleRefreshSpotifyDataClick}>
-                    Fetch Your Spotify Data {isFetchLoading && <Loader2 className="animate-spin" />}
+                    Refresh Data {isFetchLoading && <Loader2 className="animate-spin" />}
                 </Button>
             )}
-        </div>
+        </>
     )
 }
