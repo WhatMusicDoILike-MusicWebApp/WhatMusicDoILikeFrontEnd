@@ -15,3 +15,5 @@ export * from "./separator";
 export * from "./sheet";
 export * from "./skeleton";
 export * from "./tooltip";
+export * from "./breadcrumb";
+export * from "./scroll-area";

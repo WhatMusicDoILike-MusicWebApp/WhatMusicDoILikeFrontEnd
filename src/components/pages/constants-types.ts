@@ -57,20 +57,16 @@ export const teamMembers = [
     },
 ];
 
-interface Playlist {
-    playlistName: string;
-    tracks: string[];
+export enum MainContent {
+    Spotify = 'Spotify',
+    YoutubeMusic = 'YoutubeMusic',
+    Transfer = 'Transfer',
+    Insights = 'Insights',
 }
 
 export interface FetchMusicDataResponse {
     userId: string;
     playlists: Playlist[];
-}
-
-export enum MainContent {
-    Spotify = 'Spotify',
-    YoutubeMusic = 'YoutubeMusic',
-    Transfer = 'Transfer',
 }
 
 export interface UserResponse {
@@ -79,4 +75,17 @@ export interface UserResponse {
     name: string;
     spotifyAuthToken: string;
     spotifyRefreshToken: string;
+}
+
+export interface Track {
+    name: string;
+    artist_string: string;
+    artists: string[];
+    imageUrl: string;
+}
+
+export interface Playlist {
+    imageUrl: string;
+    playlistName: string;
+    tracks: Track[];
 }

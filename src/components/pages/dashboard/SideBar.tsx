@@ -10,11 +10,11 @@ import {
     SidebarMenuItem,
     SidebarRail,
 } from "../../ui"
-import { CirclePlay, LogOut, Music, SquareUser } from "lucide-react"
+import { BarChart2, CirclePlay, LogOut, Music, SquareUser } from "lucide-react"
 import { MainContent } from "../constants-types";
 
 interface SideBarProps {
-    setCurrentMainContent: React.Dispatch<React.SetStateAction<MainContent | null>>;
+    setCurrentMainContent: React.Dispatch<React.SetStateAction<MainContent>>;
 }
 
 export const SideBar = ({ setCurrentMainContent }: SideBarProps): JSX.Element => {
@@ -35,6 +35,11 @@ export const SideBar = ({ setCurrentMainContent }: SideBarProps): JSX.Element =>
             url: "#",
             icon: SquareUser,
         },
+        {
+            title: "Insights",
+            url: "#",
+            icon: BarChart2,
+        },
     ]
 
     const handleSideBarItemClick = (title: string) => {
@@ -47,6 +52,9 @@ export const SideBar = ({ setCurrentMainContent }: SideBarProps): JSX.Element =>
                 break;
             case "Transfer":
                 setCurrentMainContent(MainContent.Transfer);
+                break;
+            case "Insights":
+                setCurrentMainContent(MainContent.Insights);
                 break;
             default:
                 break;
