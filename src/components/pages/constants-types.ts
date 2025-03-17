@@ -89,3 +89,9 @@ export interface Playlist {
     playlistName: string;
     tracks: Track[];
 }
+
+export interface UpdateUserPasswordParams {
+    newPassword: string;
+    currentPassword?: string;
+    signOutOfOtherSessions?: boolean;
+};
