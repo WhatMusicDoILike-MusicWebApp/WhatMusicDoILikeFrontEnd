@@ -59,10 +59,7 @@ const formSchema = z
         path: ["name"],
     });
 
-interface SignUpFormProps {
-}
-
-export const UpdateAccountForm = ({ }: SignUpFormProps): JSX.Element => {
+export const UpdateAccountForm = (): JSX.Element => {
     const [isError, setIsError] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [isCreateAccountLoading, setIsCreateAccountLoading] = useState<boolean>(false);
