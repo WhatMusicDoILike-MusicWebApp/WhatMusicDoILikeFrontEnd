@@ -1,8 +1,5 @@
 import { ClerkAPIErrorResponse, SignUpStep } from "../constants-types";
-
-const isClerkAPIResponseError = (error: any): error is ClerkAPIErrorResponse => {
-    return error.clerkError;
-};
+import { useClerk } from "@clerk/clerk-react";
 
 export const handleSignUp = async (
     email: string,
@@ -10,7 +7,7 @@ export const handleSignUp = async (
     setCurrentStep: React.Dispatch<React.SetStateAction<SignUpStep>>,
     setIsError: React.Dispatch<React.SetStateAction<boolean>>,
     setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
-    clerk: any,
+    clerk: ReturnType<typeof useClerk>,
 ): Promise<void> => {
     try {
         await clerk.client.signUp.create({ emailAddress: email, password });
@@ -18,13 +15,11 @@ export const handleSignUp = async (
         setCurrentStep(SignUpStep.Verification);
     } catch (error) {
         console.error(JSON.stringify(error, null, 2));
-        if (isClerkAPIResponseError(error)) {
-            setIsError(true);
-            setErrorMessage(error.errors[0].longMessage);
-        } else {
-            setIsError(true);
-            setErrorMessage('An unexpected error occurred.');
-        }
+        const errorString = error as ClerkAPIErrorResponse;
+        setIsError(true);
+        setErrorMessage(errorString.errors[0].longMessage
+            ? errorString.errors[0].longMessage
+            : "An unexpected error occurred.");
     }
 };
 
@@ -32,7 +27,7 @@ export const handleEmailVerification = async (
     code: string,
     setIsError: React.Dispatch<React.SetStateAction<boolean>>,
     setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
-    clerk: any,
+    clerk: ReturnType<typeof useClerk>,
 ): Promise<void> => {
 
     try {
@@ -40,12 +35,11 @@ export const handleEmailVerification = async (
         await clerk.setActive({ session: verify.createdSessionId });
     } catch (error) {
         console.error(JSON.stringify(error, null, 2));
-        if (isClerkAPIResponseError(error)) {
-            setIsError(true);
-            const message = error.errors[0].longMessage === 'email_verification_code is not a valid parameter for this request.'
-                ? "Invalid verification code. Please try again."
-                : error.errors[0].longMessage;
-            setErrorMessage(message);
-        }
+        const errorString = error as ClerkAPIErrorResponse;
+        setIsError(true);
+        const message = errorString.errors[0].longMessage === 'email_verification_code is not a valid parameter for this request.'
+            ? "Invalid verification code. Please try again."
+            : errorString.errors[0].longMessage;
+        setErrorMessage(message);
     }
 };
