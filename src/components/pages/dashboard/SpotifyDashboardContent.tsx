@@ -16,7 +16,7 @@ export const SpotifyDashboardContent = ({ userInfo, setUserInfo }: SpotifyDashbo
     useEffect(() => {
         const fetchMusicData = async () => {
             try {
-                const response = await axios.get<FetchMusicDataResponse>('http://127.0.0.1:5000/playlists', { params: { userId: userInfo.userId } });
+                const response = await axios.get<FetchMusicDataResponse>('api.whatmusicdoilike.com/playlists', { params: { userId: userInfo.userId } });
                 console.log(response.data);
                 setPlaylistData(response.data.playlists);
             } catch (error) {

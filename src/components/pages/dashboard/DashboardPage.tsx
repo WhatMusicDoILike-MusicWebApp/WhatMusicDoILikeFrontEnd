@@ -41,7 +41,7 @@ export const DashboardPage = (): JSX.Element => {
         const fetchUser = async () => {
 
             try {
-                await axios.get<UserResponse>('http://127.0.0.1:5000/users?userId=' + userId).then(response => {
+                await axios.get<UserResponse>('api.whatmusicdoilike.com/users?userId=' + userId).then(response => {
                     const setUserConfig = {
                         userId: response.data.userId,
                         email: response.data.email,
