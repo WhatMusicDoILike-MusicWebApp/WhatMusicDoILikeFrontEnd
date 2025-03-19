@@ -37,7 +37,7 @@ export const SpotifyConnectRefreshButton = ({ userInfo, setUserInfo, setPlaylist
     useEffect(() => {
         const establishSpotifyConnection = async () => {
             try {
-                const response = await axios.post('http://127.0.0.1:5000/spotify/initializeConnection', { userId, code: code });
+                const response = await axios.post('api.whatmusicdoilike.com/spotify/initializeConnection', { userId, code: code });
                 setUserInfo({ ...userInfo, spotifyAuthToken: response.data.spotifyAuthToken, spotifyRefreshToken: response.data.spotifyRefreshToken });
             } catch (error) {
                 console.log('Error: ' + error);
@@ -56,7 +56,7 @@ export const SpotifyConnectRefreshButton = ({ userInfo, setUserInfo, setPlaylist
         const fetchMusicData = async () => {
             setIsFetchLoading(true);
             try {
-                const response = await axios.get<FetchMusicDataResponse>('http://127.0.0.1:5000/spotify/fetchUserData', { params: { userId: userId } });
+                const response = await axios.get<FetchMusicDataResponse>('api.whatmusicdoilike.com/spotify/fetchUserData', { params: { userId: userId } });
                 setPlaylistData(response.data.playlists);
             } catch (error) {
                 setIsFetchLoading(false);
