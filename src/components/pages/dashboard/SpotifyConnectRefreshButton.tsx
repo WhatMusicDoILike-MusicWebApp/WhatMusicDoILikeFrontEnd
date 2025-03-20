@@ -22,7 +22,7 @@ export const SpotifyConnectRefreshButton = ({ userInfo, setUserInfo, setPlaylist
 
     const handleSpotifyAuthClick = () => {
         const clientID = "5b29e1d4b2464531bac914c3b00be5ec";
-        const url = `https://accounts.spotify.com/en/authorize?client_id=${clientID}&response_type=code&scope=user-read-private+user-read-email+playlist-read-private+playlist-modify-public+playlist-modify-private&redirect_uri=http%3A%2F%2Flocalhost%3A5173%2Fdashboard&show_dialog=True`;
+        const url = `https://accounts.spotify.com/en/authorize?client_id=${clientID}&response_type=code&scope=user-read-private+user-read-email+playlist-read-private+playlist-modify-public+playlist-modify-private&redirect_uri=https%3A%2F%2Fwhatmusicdoilike.com%2Fdashboard&show_dialog=True`;
         window.location.replace(url);
     };
 
