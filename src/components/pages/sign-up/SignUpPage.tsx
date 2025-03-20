@@ -15,12 +15,10 @@ export const SignUpPage = (): JSX.Element => {
     const { userId, isLoaded } = useAuth();
     const { session } = useSession();
 
-    const databaseEndpoint = '127.0.0.1:5000';
-
     useEffect(() => {
         const createUser = async () => {
             if (session) {
-                const response = await axios.post(`http://${databaseEndpoint}/users`, { userId: userId, email: dbUserEmail, name: dbUserName });
+                const response = await axios.post(`https://api.whatmusicdoilike.com/users`, { userId: userId, email: dbUserEmail, name: dbUserName });
                 console.log("Created User:", response.data);
                 const expireAt = new Date();
                 expireAt.setMinutes(expireAt.getMinutes() + 1); // Add 20 minutes
@@ -32,6 +30,9 @@ export const SignUpPage = (): JSX.Element => {
 
             //add in error handling to check if user was created, if not, display error message and have user re signup
         };
+
+        console.log("userId(signUpPage.tsx): ", userId);
+        console.log("isLoaded(signUpPage.tsx): ", isLoaded);
 
         if (userId && isLoaded)
             createUser();
