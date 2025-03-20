@@ -20,19 +20,11 @@ export const SignUpPage = (): JSX.Element => {
             if (session) {
                 const response = await axios.post(`https://api.whatmusicdoilike.com/users`, { userId: userId, email: dbUserEmail, name: dbUserName });
                 console.log("Created User:", response.data);
-                const expireAt = new Date();
-                expireAt.setMinutes(expireAt.getMinutes() + 1); // Add 20 minutes
-
-                // Mutate the expireAt property of the session
-                session.expireAt = expireAt;
                 navigate(`/dashboard`);
             }
 
-            //add in error handling to check if user was created, if not, display error message and have user re signup
+            //add in error handling to check if user was created, if not, display error message and have user re signup and break clerk session
         };
-
-        console.log("userId(signUpPage.tsx): ", userId);
-        console.log("isLoaded(signUpPage.tsx): ", isLoaded);
 
         if (userId && isLoaded)
             createUser();
