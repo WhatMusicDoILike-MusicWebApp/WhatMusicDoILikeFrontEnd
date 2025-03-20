@@ -19,6 +19,7 @@ import {
 import axios from 'axios';
 import { useAuth, useUser } from '@clerk/clerk-react';
 import { UpdateUserPasswordParams } from '../constants-types';
+import { backendEndpoint } from '@/main';
 
 const formSchema = z
     .object({
@@ -72,7 +73,7 @@ export const UpdateAccountForm = (): JSX.Element => {
         try {
             console.log(values);
             if (values.name) {
-                const response = await axios.put('http://127.0.0.1:5000/users', { userId: userId, newName: values.name });
+                const response = await axios.put(`${backendEndpoint}/users`, { userId: userId, newName: values.name });
                 console.log(response.data);
             }
 

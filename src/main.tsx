@@ -29,6 +29,8 @@ const router = createBrowserRouter([
   },
 ]);
 
+export const backendEndpoint = 'https://api.whatmusicdoilike.com';
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <RouterProvider router={router} />
