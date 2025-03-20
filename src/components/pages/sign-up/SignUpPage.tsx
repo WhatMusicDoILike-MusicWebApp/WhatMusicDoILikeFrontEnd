@@ -31,6 +31,9 @@ export const SignUpPage = (): JSX.Element => {
             //add in error handling to check if user was created, if not, display error message and have user re signup
         };
 
+        console.log("userId(signUpPage.tsx): ", userId);
+        console.log("isLoaded(signUpPage.tsx): ", isLoaded);
+
         if (userId && isLoaded)
             createUser();
     }, [userId, isLoaded, session]);
