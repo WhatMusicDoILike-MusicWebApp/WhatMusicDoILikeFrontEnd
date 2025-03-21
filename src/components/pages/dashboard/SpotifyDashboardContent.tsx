@@ -4,7 +4,7 @@ import { FetchMusicDataResponse, Playlist, UserResponse } from '../constants-typ
 import { SpotifyConnectRefreshButton } from './SpotifyConnectRefreshButton';
 import { PlaylistCards } from './PlaylistCards';
 import axios from 'axios';
-import { backendEndpoint } from '@/main';
+import { BACKEND_ENDPOINT } from '@/main';
 
 interface SpotifyDashboardContentProps {
     userInfo: UserResponse;
@@ -17,7 +17,7 @@ export const SpotifyDashboardContent = ({ userInfo, setUserInfo }: SpotifyDashbo
     useEffect(() => {
         const fetchMusicData = async () => {
             try {
-                const response = await axios.get<FetchMusicDataResponse>(`${backendEndpoint}/playlists`, { params: { userId: userInfo.userId } });
+                const response = await axios.get<FetchMusicDataResponse>(`${BACKEND_ENDPOINT}/playlists`, { params: { userId: userInfo.userId } });
                 console.log(response.data);
                 setPlaylistData(response.data.playlists);
             } catch (error) {
