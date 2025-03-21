@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { EmailVerificationForm } from './EmailVerificationForm';
 import { useAuth, useSession } from '@clerk/clerk-react';
-import { backendEndpoint } from '@/main';
+import { BACKEND_ENDPOINT } from '@/main';
 
 export const SignUpPage = (): JSX.Element => {
     const [dbUserEmail, setDBUserEmail] = useState<string>('');
@@ -19,7 +19,7 @@ export const SignUpPage = (): JSX.Element => {
     useEffect(() => {
         const createUser = async () => {
             if (session) {
-                const response = await axios.post(`${backendEndpoint}/users`, { userId: userId, email: dbUserEmail, name: dbUserName });
+                const response = await axios.post(`${BACKEND_ENDPOINT}/users`, { userId: userId, email: dbUserEmail, name: dbUserName });
                 console.log("Created User:", response.data);
                 navigate(`/dashboard`);
             }
