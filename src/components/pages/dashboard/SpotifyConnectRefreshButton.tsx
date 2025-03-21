@@ -5,7 +5,7 @@ import axios from "axios";
 import { Button } from "../../ui";
 import { useSearchParams } from "react-router-dom";
 import { useAuth } from "@clerk/clerk-react";
-import { backendEndpoint } from "@/main";
+import { BACKEND_ENDPOINT } from "@/main";
 
 interface SpotifyConnectRefreshButtonProps {
     userInfo: UserResponse;
@@ -38,7 +38,7 @@ export const SpotifyConnectRefreshButton = ({ userInfo, setUserInfo, setPlaylist
     useEffect(() => {
         const establishSpotifyConnection = async () => {
             try {
-                const response = await axios.post(`${backendEndpoint}/spotify/initializeConnection`, { userId, code: code });
+                const response = await axios.post(`${BACKEND_ENDPOINT}/spotify/initializeConnection`, { userId, code: code });
                 setUserInfo({ ...userInfo, spotifyAuthToken: response.data.spotifyAuthToken, spotifyRefreshToken: response.data.spotifyRefreshToken });
             } catch (error) {
                 console.log('Error: ' + error);
@@ -57,7 +57,7 @@ export const SpotifyConnectRefreshButton = ({ userInfo, setUserInfo, setPlaylist
         const fetchMusicData = async () => {
             setIsFetchLoading(true);
             try {
-                const response = await axios.get<FetchMusicDataResponse>(`${backendEndpoint}/spotify/fetchUserData`, { params: { userId: userId } });
+                const response = await axios.get<FetchMusicDataResponse>(`${BACKEND_ENDPOINT}/spotify/fetchUserData`, { params: { userId: userId } });
                 setPlaylistData(response.data.playlists);
             } catch (error) {
                 setIsFetchLoading(false);

@@ -7,7 +7,7 @@ import { SidebarProvider } from "../../ui";
 import { MainContent, UserResponse } from "../constants-types";
 import axios from "axios";
 import { SpotifyDashboardContent } from "./SpotifyDashboardContent";
-import { backendEndpoint } from "@/main";
+import { BACKEND_ENDPOINT } from "@/main";
 
 export const DashboardPage = (): JSX.Element => {
     const [currentMainContent, setCurrentMainContent] = useState<MainContent>(MainContent.Spotify);
@@ -42,7 +42,7 @@ export const DashboardPage = (): JSX.Element => {
         const fetchUser = async () => {
 
             try {
-                await axios.get<UserResponse>(`${backendEndpoint}/users?userId=${userId}`).then(response => {
+                await axios.get<UserResponse>(`${BACKEND_ENDPOINT}/users?userId=${userId}`).then(response => {
                     const setUserConfig = {
                         userId: response.data.userId,
                         email: response.data.email,
