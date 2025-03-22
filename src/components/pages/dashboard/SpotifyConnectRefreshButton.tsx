@@ -5,7 +5,7 @@ import axios from "axios";
 import { Button } from "../../ui";
 import { useSearchParams } from "react-router-dom";
 import { useAuth } from "@clerk/clerk-react";
-import { BACKEND_ENDPOINT } from "@/main";
+import { BACKEND_ENDPOINT, DEV_MODE } from "@/main";
 
 interface SpotifyConnectRefreshButtonProps {
     userInfo: UserResponse;
@@ -23,7 +23,9 @@ export const SpotifyConnectRefreshButton = ({ userInfo, setUserInfo, setPlaylist
 
     const handleSpotifyAuthClick = () => {
         const clientID = "5b29e1d4b2464531bac914c3b00be5ec";
-        const url = `https://accounts.spotify.com/en/authorize?client_id=${clientID}&response_type=code&scope=user-read-private+user-read-email+playlist-read-private+playlist-modify-public+playlist-modify-private&redirect_uri=https%3A%2F%2Fwhatmusicdoilike.com%2Fdashboard&show_dialog=True`;
+        const callback = DEV_MODE === 'TRUE' ? 'http%3A%2F%2Flocalhost:5173' : 'https%3A%2F%2Fwhatmusicdoilike.com';
+        console.log('Callback: ' + callback);
+        const url = `https://accounts.spotify.com/en/authorize?client_id=${clientID}&response_type=code&scope=user-read-private+user-read-email+playlist-read-private+playlist-modify-public+playlist-modify-private&redirect_uri=${callback}%2Fdashboard&show_dialog=True`;
         window.location.replace(url);
     };
 
@@ -58,6 +60,7 @@ export const SpotifyConnectRefreshButton = ({ userInfo, setUserInfo, setPlaylist
             setIsFetchLoading(true);
             try {
                 const response = await axios.get<FetchMusicDataResponse>(`${BACKEND_ENDPOINT}/spotify/fetchUserData`, { params: { userId: userId } });
+                console.log('Response: ' + JSON.stringify(response.data));
                 setPlaylistData(response.data.playlists);
             } catch (error) {
                 setIsFetchLoading(false);
