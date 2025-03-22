@@ -82,9 +82,11 @@ export interface Track {
     artist_string: string;
     artists: string[];
     imageUrl: string;
+    url: string;
 }
 
 export interface Playlist {
+    url: string;
     imageUrl: string;
     playlistName: string;
     tracks: Track[];
