@@ -7,6 +7,7 @@ import { SidebarProvider } from "../../ui";
 import { MainContent, UserResponse } from "../constants-types";
 import { SpotifyContent } from "./SpotifyContent";
 import axios from "axios";
+import { YoutubeContent } from "./YoutubeContent";
 
 export const DashboardPage = (): JSX.Element => {
     const [currentMainContent, setCurrentMainContent] = useState<MainContent | null>(null);
@@ -21,7 +22,7 @@ export const DashboardPage = (): JSX.Element => {
             case MainContent.Spotify:
                 return <SpotifyContent userInfo={userInfo} setUserInfo={setUserInfo} />;
             case MainContent.YoutubeMusic:
-                return <>YoutubeMusic</>;
+                return <YoutubeContent/>;
             case MainContent.Transfer:
                 return <>Transfer</>;
             default:
