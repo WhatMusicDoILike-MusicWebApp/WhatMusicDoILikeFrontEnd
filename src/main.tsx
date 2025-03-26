@@ -11,6 +11,10 @@ import DashboardLayout from './layouts/dashboard-layout.tsx';
 import { DashboardPage } from './components/pages/dashboard/DashboardPage.tsx';
 import { SignInPage } from './components/pages/sign-in/SignInPage.tsx';
 
+export const DEV_MODE = import.meta.env.DEV_MODE;
+
+export const BACKEND_ENDPOINT = DEV_MODE == 'TRUE' ? 'http://127.0.0.1:5000' : 'https://api.whatmusicdoilike.com';
+
 const router = createBrowserRouter([
   {
     element: <RootLayout />,

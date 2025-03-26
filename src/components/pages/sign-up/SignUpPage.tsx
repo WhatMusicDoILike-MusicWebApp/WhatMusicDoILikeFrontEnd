@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { EmailVerificationForm } from './EmailVerificationForm';
 import { useAuth, useSession } from '@clerk/clerk-react';
+import { BACKEND_ENDPOINT } from '@/main';
 
 export const SignUpPage = (): JSX.Element => {
     const [dbUserEmail, setDBUserEmail] = useState<string>('');
@@ -15,22 +16,15 @@ export const SignUpPage = (): JSX.Element => {
     const { userId, isLoaded } = useAuth();
     const { session } = useSession();
 
-    const databaseEndpoint = '127.0.0.1:5000';
-
     useEffect(() => {
         const createUser = async () => {
             if (session) {
-                const response = await axios.post(`http://${databaseEndpoint}/users`, { userId: userId, email: dbUserEmail, name: dbUserName });
+                const response = await axios.post(`${BACKEND_ENDPOINT}/users`, { userId: userId, email: dbUserEmail, name: dbUserName });
                 console.log("Created User:", response.data);
-                const expireAt = new Date();
-                expireAt.setMinutes(expireAt.getMinutes() + 1); // Add 20 minutes
-
-                // Mutate the expireAt property of the session
-                session.expireAt = expireAt;
                 navigate(`/dashboard`);
             }
 
-            //add in error handling to check if user was created, if not, display error message and have user re signup
+            //add in error handling to check if user was created, if not, display error message and have user re signup and break clerk session
         };
 
         if (userId && isLoaded)

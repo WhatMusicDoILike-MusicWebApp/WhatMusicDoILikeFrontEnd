@@ -1,4 +1,5 @@
 import { ClerkAPIErrorResponse } from "../constants-types";
+import { useClerk } from "@clerk/clerk-react";
 
 export interface SignInModelProps {
     email: string;
@@ -6,12 +7,8 @@ export interface SignInModelProps {
     setIsError: React.Dispatch<React.SetStateAction<boolean>>;
     setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
     navigate: (path: string) => void;
-    clerk: any;
+    clerk: ReturnType<typeof useClerk>;
 }
-
-const isClerkAPIResponseError = (error: any): error is ClerkAPIErrorResponse => {
-    return error.clerkError;
-};
 
 export const handleSignIn = async ({
     email,
@@ -34,9 +31,10 @@ export const handleSignIn = async ({
         }
     } catch (error) {
         console.error(JSON.stringify(error, null, 2));
-        if (isClerkAPIResponseError(error)) {
-            setIsError(true);
-            setErrorMessage(error.errors[0].longMessage);
-        }
+        const errorString = error as ClerkAPIErrorResponse;
+        setIsError(true);
+        setErrorMessage(errorString.errors[0].longMessage
+            ? errorString.errors[0].longMessage
+            : "An unexpected error occurred.");
     }
 };

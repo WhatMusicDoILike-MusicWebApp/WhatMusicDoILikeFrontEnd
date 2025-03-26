@@ -5,32 +5,31 @@ import { DashboardBanner } from "./DashboardBanner";
 import { SideBar } from "./SideBar";
 import { SidebarProvider } from "../../ui";
 import { MainContent, UserResponse } from "../constants-types";
-import { SpotifyContent } from "./SpotifyContent";
 import axios from "axios";
 import { YoutubeContent } from "./YoutubeContent";
+import { SpotifyDashboardContent } from "./SpotifyDashboardContent";
+import { BACKEND_ENDPOINT } from "@/main";
 
 export const DashboardPage = (): JSX.Element => {
-    const [currentMainContent, setCurrentMainContent] = useState<MainContent | null>(null);
+    const [currentMainContent, setCurrentMainContent] = useState<MainContent>(MainContent.Spotify);
     const [userInfo, setUserInfo] = useState<UserResponse>({ userId: '', email: '', name: '', spotifyAuthToken: '', spotifyRefreshToken: '' });
 
     const clerk = useClerk();
     const { session } = useSession();
     const { userId } = useAuth();
 
-    const mainContent = (content: MainContent | null) => {
+    const mainContent = (content: MainContent) => {
         switch (content) {
             case MainContent.Spotify:
-                return <SpotifyContent userInfo={userInfo} setUserInfo={setUserInfo} />;
+                return <SpotifyDashboardContent userInfo={userInfo} setUserInfo={setUserInfo} />;
             case MainContent.YoutubeMusic:
                 return <YoutubeContent/>;
             case MainContent.Transfer:
                 return <>Transfer</>;
+            case MainContent.Insights:
+                return <>Insights</>;
             default:
-                return (
-                    <>
-                        Hello! This is the Dashboard Page.
-                    </>
-                )
+                return <>Hello! This is the Dashboard Page.</>;
         }
     }
 
@@ -44,7 +43,7 @@ export const DashboardPage = (): JSX.Element => {
         const fetchUser = async () => {
 
             try {
-                await axios.get<UserResponse>('http://127.0.0.1:5000/users?userId=' + userId).then(response => {
+                await axios.get<UserResponse>(`${BACKEND_ENDPOINT}/users?userId=${userId}`).then(response => {
                     const setUserConfig = {
                         userId: response.data.userId,
                         email: response.data.email,
@@ -68,10 +67,8 @@ export const DashboardPage = (): JSX.Element => {
         <SidebarProvider defaultOpen={true}>
             <SideBar setCurrentMainContent={setCurrentMainContent} />
             <main className="flex flex-col h-screen w-full bg-gradient-to-b from-black via-gray-500 to-white">
-                <DashboardBanner />
-                <div className="pt-32 p-8 flex items-start justify-center h-screen bg-cover bg-center bg-gradient-to-b from-black via-gray-500 to-white">
-                    {mainContent(currentMainContent)}
-                </div>
+                <DashboardBanner currentMainContent={currentMainContent} />
+                {mainContent(currentMainContent)}
             </main>
         </SidebarProvider>
     )

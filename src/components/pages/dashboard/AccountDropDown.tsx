@@ -19,9 +19,13 @@ import {
     AlertDialogDescription,
     AlertDialogFooter,
     AlertDialogCancel,
-    AlertDialogAction
+    AlertDialogAction,
+    Sheet,
+    SheetContent,
+    SheetTrigger
 } from '../../ui'
 import { Loader2 } from "lucide-react";
+import { UpdateAccountForm } from "./UpdateAccountForm";
 
 export const AccountDropDown = (): JSX.Element => {
     const [isDropDownMenuOpen, setIsDropDownMenuOpen] = useState<boolean>(false);
@@ -48,7 +52,6 @@ export const AccountDropDown = (): JSX.Element => {
 
     return (
         <div className="flex flex-row items-center pr-6">
-
             <DropdownMenu open={isDropDownMenuOpen} modal={false} >
                 <DropdownMenuTrigger onClick={() => setIsDropDownMenuOpen(!isDropDownMenuOpen)} >
                     <Avatar className="w-10 h-10">
@@ -59,8 +62,16 @@ export const AccountDropDown = (): JSX.Element => {
                 <DropdownMenuContent>
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                    <DropdownMenuItem>Billing</DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <Sheet>
+                            <SheetTrigger>
+                                <p>Account</p>
+                            </SheetTrigger>
+                            <SheetContent className="w-[400px] sm:w-[540px]">
+                                <UpdateAccountForm />
+                            </SheetContent>
+                        </Sheet>
+                    </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
                         <AlertDialog open={isSignOutModalOpen}>
@@ -86,7 +97,6 @@ export const AccountDropDown = (): JSX.Element => {
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
-
         </div>
     )
 }
