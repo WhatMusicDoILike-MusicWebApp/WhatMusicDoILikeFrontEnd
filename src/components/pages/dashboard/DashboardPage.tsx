@@ -6,6 +6,7 @@ import { SideBar } from "./SideBar";
 import { SidebarProvider } from "../../ui";
 import { MainContent, UserResponse } from "../constants-types";
 import axios from "axios";
+import { YoutubeContent } from "./YoutubeContent";
 import { SpotifyDashboardContent } from "./SpotifyDashboardContent";
 import { BACKEND_ENDPOINT } from "@/main";
 
@@ -22,7 +23,7 @@ export const DashboardPage = (): JSX.Element => {
             case MainContent.Spotify:
                 return <SpotifyDashboardContent userInfo={userInfo} setUserInfo={setUserInfo} />;
             case MainContent.YoutubeMusic:
-                return <>YoutubeMusic</>;
+                return <YoutubeContent/>;
             case MainContent.Transfer:
                 return <>Transfer</>;
             case MainContent.Insights:
