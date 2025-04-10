@@ -83,6 +83,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.17)
+      website-package:
+        specifier: 'file:'
+        version: file:(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(tailwindcss@3.4.17)
       zod:
         specifier: ^3.24.1
         version: 3.24.1
@@ -2306,6 +2309,9 @@ packages:
       yaml:
         optional: true
 
+  'website-package@file:':
+    resolution: {directory: '', type: directory}
+
   which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
     engines: {node: '>= 8'}
@@ -4382,6 +4388,40 @@ snapshots:
       fsevents: 2.3.3
       jiti: 1.21.7
       yaml: 2.7.0
+
+  website-package@file:(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(tailwindcss@3.4.17):
+    dependencies:
+      '@clerk/clerk-react': 5.22.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@fontsource/inter': 5.1.1
+      '@hookform/resolvers': 3.10.0(react-hook-form@7.54.2(react@18.3.1))
+      '@radix-ui/react-alert-dialog': 1.1.6(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-avatar': 1.1.3(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-dialog': 1.1.6(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-dropdown-menu': 2.1.6(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-label': 2.1.1(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-navigation-menu': 1.2.4(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-popover': 1.1.6(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-scroll-area': 1.2.3(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-separator': 1.1.1(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-slot': 1.1.2(@types/react@18.3.18)(react@18.3.1)
+      '@radix-ui/react-tooltip': 1.1.8(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios: 1.8.4
+      class-variance-authority: 0.7.1
+      clsx: 2.1.1
+      cmdk: 1.0.0(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      lucide-react: 0.474.0(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      react-hook-form: 7.54.2(react@18.3.1)
+      react-router-dom: 7.1.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      tailwind-merge: 3.0.1
+      tailwindcss-animate: 1.0.7(tailwindcss@3.4.17)
+      zod: 3.24.1
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
+      - debug
+      - tailwindcss
 
   which@2.0.2:
     dependencies:
