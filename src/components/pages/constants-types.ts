@@ -75,6 +75,7 @@ export interface UserResponse {
     name: string;
     spotifyAuthToken: string;
     spotifyRefreshToken: string;
+    ytToken: string;
 }
 
 export interface Track {

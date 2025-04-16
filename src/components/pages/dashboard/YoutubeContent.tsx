@@ -2,21 +2,27 @@
 import axios from "axios";
 import { Button, Separator } from "../../ui";
 import { useAuth } from "@clerk/clerk-react";
-import { FetchMusicDataResponse, Playlist } from "../constants-types";
+import { FetchMusicDataResponse, Playlist, UserResponse } from "../constants-types";
 import { BACKEND_ENDPOINT } from "@/main";
 import { PlaylistCards } from "./PlaylistCards";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { YtConnectRefreshButton } from "./YoutubeButton";
 
-export const YoutubeContent = (): JSX.Element => {
+
+interface YtDashboardContentProps {
+    userInfo: UserResponse;
+    setUserInfo: React.Dispatch<React.SetStateAction<UserResponse>>;
+}
+
+export const YoutubeContent = ({userInfo, setUserInfo}: YtDashboardContentProps): JSX.Element => {
     const { userId } = useAuth();
     const [playlistData, setPlaylistData] = useState<Playlist[]>([]);
     
 
     const handleYtAuthClick = async () => {
         try {
-            const response = await axios.post<Playlist[]>(`${BACKEND_ENDPOINT}/youtube/yt_auth`, {  userId } );
+            const response = await axios.post<Playlist[]>(`http://127.0.0.1:5000/youtube/yt_auth`, {  userId } );
             console.log(response.data);  // Log response properly
-            setPlaylistData(response.data)
         } catch (error) {
             console.error("Error during YouTube Auth:", error);
         }
@@ -24,19 +30,34 @@ export const YoutubeContent = (): JSX.Element => {
 
     const handlePlaylist = async () => {
         try {
-            const response = await axios.post<FetchMusicDataResponse>(`${BACKEND_ENDPOINT}/youtube/yt_create_playlist`, {  userId } );
+            const response = await axios.post<FetchMusicDataResponse>(`http://127.0.0.1:5000/youtube/yt_create_playlist`, {  userId } );
             console.log(response.data);  // Log response properly
         } catch (error) {
             console.error("Error during YouTube Auth:", error);
         }
     };  
 
+    useEffect(() => {
+        const fetchMusicData = async () => {
+            try {
+                const response = await axios.get<Playlist[]>(`http://127.0.0.1:5000/youtube/yt_fetch_data`, { params: { userId: '1' } });
+                console.log(response.data);
+                setPlaylistData(response.data);
+            } catch (error) {
+                console.log('Error: ' + error);
+            }
+        }
+        if(userInfo.ytToken){
+            fetchMusicData();
+        }
+    }, [userInfo]);
+
 
     return (
         <>
             <div className="flex flex-row items-center justify-start px-8">
                 <h1 className="text-2xl font-bold text-gray-100 pr-4">Playlists</h1>
-                    <Button onClick={handleYtAuthClick}>Connect and Fetch Your Youtube</Button>
+                    <YtConnectRefreshButton userInfo={userInfo} setUserInfo={setUserInfo} setPlaylistData={setPlaylistData}/>
                 <h2 className="text-2xl font-bold text-gray-100 pr-4">Create PLaylist</h2>
                     <Button onClick={handlePlaylist}>Playlist Test</Button>
                 </div>
