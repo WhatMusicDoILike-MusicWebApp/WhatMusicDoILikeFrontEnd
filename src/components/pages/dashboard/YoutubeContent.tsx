@@ -19,18 +19,9 @@ export const YoutubeContent = ({userInfo, setUserInfo}: YtDashboardContentProps)
     const [playlistData, setPlaylistData] = useState<Playlist[]>([]);
     
 
-    const handleYtAuthClick = async () => {
-        try {
-            const response = await axios.post<Playlist[]>(`http://127.0.0.1:5000/youtube/yt_auth`, {  userId } );
-            console.log(response.data);  // Log response properly
-        } catch (error) {
-            console.error("Error during YouTube Auth:", error);
-        }
-    };  
-
     const handlePlaylist = async () => {
         try {
-            const response = await axios.post<FetchMusicDataResponse>(`http://127.0.0.1:5000/youtube/yt_create_playlist`, {  userId } );
+            const response = await axios.post<FetchMusicDataResponse>(`${BACKEND_ENDPOINT}/youtube/yt_create_playlist`, {  userId } );
             console.log(response.data);  // Log response properly
         } catch (error) {
             console.error("Error during YouTube Auth:", error);
@@ -40,7 +31,7 @@ export const YoutubeContent = ({userInfo, setUserInfo}: YtDashboardContentProps)
     useEffect(() => {
         const fetchMusicData = async () => {
             try {
-                const response = await axios.get<Playlist[]>(`http://127.0.0.1:5000/youtube/yt_fetch_data`, { params: { userId: '1' } });
+                const response = await axios.get<Playlist[]>(`${BACKEND_ENDPOINT}/youtube/yt_fetch_data`, { params: { userId: '1' } });
                 console.log(response.data);
                 setPlaylistData(response.data);
             } catch (error) {

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { FetchMusicDataResponse, Playlist, UserResponse } from "../constants-types";
+import {  Playlist, UserResponse } from "../constants-types";
 import { Loader2 } from "lucide-react";
 import axios from "axios";
 import { Button } from "../../ui";
-import { useSearchParams } from "react-router-dom";
 import { useAuth } from "@clerk/clerk-react";
 import { BACKEND_ENDPOINT, DEV_MODE } from "@/main";
 
@@ -29,7 +28,7 @@ export const YtConnectRefreshButton = ({ userInfo, setUserInfo, setPlaylistData 
 
     const handleYtAuthClick = async () => {
         try {
-            const response = await axios.post<string>(`http://127.0.0.1:5000/youtube/yt_auth`, {  userId } );
+            const response = await axios.post<string>(`${BACKEND_ENDPOINT}youtube/yt_auth`, {  userId } );
             console.log(response.data);  // Log response properly
             setUserInfo({ ...userInfo, ytToken: response.data});
 
@@ -42,7 +41,7 @@ export const YtConnectRefreshButton = ({ userInfo, setUserInfo, setPlaylistData 
         const fetchMusicData = async () => {
             setIsFetchLoading(true);
             try {
-                const response = await axios.get<Playlist[]>(`http://127.0.0.1:5000/youtube/yt_fetch_data`, { params: { userId: userId } });
+                const response = await axios.get<Playlist[]>(`${BACKEND_ENDPOINT}youtube/yt_fetch_data`, { params: { userId: userId } });
                 console.log('Response: ' + JSON.stringify(response.data));
                 setPlaylistData(response.data);
             } catch (error) {
