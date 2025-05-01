@@ -9,6 +9,7 @@ import axios from "axios";
 import { YoutubeContent } from "./YoutubeContent";
 import { SpotifyDashboardContent } from "./SpotifyDashboardContent";
 import { BACKEND_ENDPOINT } from "@/main";
+import { InsightsContent } from "./Insights/Insights";
 
 export const DashboardPage = (): JSX.Element => {
     const [currentMainContent, setCurrentMainContent] = useState<MainContent>(MainContent.Spotify);
