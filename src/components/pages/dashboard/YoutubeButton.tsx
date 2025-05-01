@@ -28,7 +28,7 @@ export const YtConnectRefreshButton = ({ userInfo, setUserInfo, setPlaylistData 
 
     const handleYtAuthClick = async () => {
         try {
-            const response = await axios.post<string>(`${BACKEND_ENDPOINT}youtube/yt_auth`, {  userId } );
+            const response = await axios.post<string>(`${BACKEND_ENDPOINT}/youtube/yt_auth`, {  userId } );
             console.log(response.data);  // Log response properly
             setUserInfo({ ...userInfo, ytToken: response.data});
 
@@ -41,7 +41,7 @@ export const YtConnectRefreshButton = ({ userInfo, setUserInfo, setPlaylistData 
         const fetchMusicData = async () => {
             setIsFetchLoading(true);
             try {
-                const response = await axios.get<Playlist[]>(`${BACKEND_ENDPOINT}youtube/yt_fetch_data`, { params: { userId: userId } });
+                const response = await axios.get<Playlist[]>(`${BACKEND_ENDPOINT}/youtube/yt_fetch_data`, { params: { userId: userId } });
                 console.log('Response: ' + JSON.stringify(response.data));
                 setPlaylistData(response.data);
             } catch (error) {
