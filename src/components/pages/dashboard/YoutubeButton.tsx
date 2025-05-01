@@ -4,7 +4,7 @@ import { Loader2 } from "lucide-react";
 import axios from "axios";
 import { Button } from "../../ui";
 import { useAuth } from "@clerk/clerk-react";
-import { BACKEND_ENDPOINT, DEV_MODE } from "@/main";
+import { BACKEND_ENDPOINT } from "@/main";
 
 interface YtConnectRefreshButtonProps {
     userInfo: UserResponse;
