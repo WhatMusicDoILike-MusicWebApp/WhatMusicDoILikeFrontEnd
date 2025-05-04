@@ -6,12 +6,14 @@ import { SideBar } from "./SideBar";
 import { SidebarProvider } from "../../ui";
 import { MainContent, UserResponse } from "../constants-types";
 import axios from "axios";
+import { YoutubeContent } from "./YoutubeContent";
 import { SpotifyDashboardContent } from "./SpotifyDashboardContent";
 import { BACKEND_ENDPOINT } from "@/main";
+import { InsightsContent } from "./Insights/Insights";
 
 export const DashboardPage = (): JSX.Element => {
     const [currentMainContent, setCurrentMainContent] = useState<MainContent>(MainContent.Spotify);
-    const [userInfo, setUserInfo] = useState<UserResponse>({ userId: '', email: '', name: '', spotifyAuthToken: '', spotifyRefreshToken: '' });
+    const [userInfo, setUserInfo] = useState<UserResponse>({ userId: '', email: '', name: '', spotifyAuthToken: '', spotifyRefreshToken: '', ytToken: '' });
 
     const clerk = useClerk();
     const { session } = useSession();
@@ -22,11 +24,11 @@ export const DashboardPage = (): JSX.Element => {
             case MainContent.Spotify:
                 return <SpotifyDashboardContent userInfo={userInfo} setUserInfo={setUserInfo} />;
             case MainContent.YoutubeMusic:
-                return <>YoutubeMusic</>;
+                return <YoutubeContent userInfo={userInfo} setUserInfo={setUserInfo}/>;
             case MainContent.Transfer:
                 return <>Transfer</>;
             case MainContent.Insights:
-                return <>Insights</>;
+                return <InsightsContent/>;
             default:
                 return <>Hello! This is the Dashboard Page.</>;
         }
@@ -48,7 +50,8 @@ export const DashboardPage = (): JSX.Element => {
                         email: response.data.email,
                         name: response.data.name,
                         spotifyAuthToken: response.data.spotifyAuthToken,
-                        spotifyRefreshToken: response.data.spotifyRefreshToken
+                        spotifyRefreshToken: response.data.spotifyRefreshToken,
+                        ytToken: response.data.ytToken
                     }
                     setUserInfo(setUserConfig);
                 });
