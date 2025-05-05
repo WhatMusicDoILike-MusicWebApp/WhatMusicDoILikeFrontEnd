@@ -28,14 +28,35 @@ export const YtConnectRefreshButton = ({ userInfo, setUserInfo, setPlaylistData 
 
     const handleYtAuthClick = async () => {
         try {
-            const response = await axios.post<string>(`${BACKEND_ENDPOINT}/youtube/yt_auth`, {  userId } );
-            console.log(response.data);  // Log response properly
-            setUserInfo({ ...userInfo, ytToken: response.data});
-
+            const { data } = await axios.post(`${BACKEND_ENDPOINT}/youtube/yt_auth/init`, { userId });
+    
+            const { auth_url, session_id } = data;
+    
+            // Open the OAuth URL in a new tab
+            window.open(auth_url, "_blank");
+    
+            // Start polling for OAuth completion
+            const pollInterval = setInterval(async () => {
+                try {
+                    const pollResponse = await axios.get(`${BACKEND_ENDPOINT}/youtube/yt_auth/poll/${session_id}`);
+                    if (pollResponse.data.status === "authenticated") {
+                        clearInterval(pollInterval);
+                        // Save token state if you want to mark user as connected
+                        setUserInfo({ ...userInfo, ytToken: "authenticated" }); 
+                        setPlaylistData(pollResponse.data.playlists); // assuming playlists are returned
+                    } else if (pollResponse.data.status === "error") {
+                        clearInterval(pollInterval);
+                        console.error("Error storing songs:", pollResponse.data.message);
+                    }
+                } catch (error) {
+                    console.error("Polling error:", error);
+                }
+            }, 5000); // Poll every 5 seconds
+    
         } catch (error) {
-            console.error("Error during YouTube Auth:", error);
+            console.error("Error starting YouTube Auth:", error);
         }
-    };  
+    };
 
     const handleRefreshYtDataClick = () => {
         const fetchMusicData = async () => {

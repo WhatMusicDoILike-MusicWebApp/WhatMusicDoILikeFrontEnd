@@ -31,17 +31,18 @@ export const YoutubeContent = ({userInfo, setUserInfo}: YtDashboardContentProps)
     useEffect(() => {
         const fetchMusicData = async () => {
             try {
-                const response = await axios.get<Playlist[]>(`${BACKEND_ENDPOINT}/youtube/yt_fetch_data`, { params: { userId: '1' } });
+                const response = await axios.get<Playlist[]>(`${BACKEND_ENDPOINT}/youtube/yt_fetch_data`, { params: { userId } });
                 console.log(response.data);
                 setPlaylistData(response.data);
             } catch (error) {
                 console.log('Error: ' + error);
             }
-        }
-        if(userInfo.ytToken){
+        };
+    
+        if (userInfo.ytToken) {
             fetchMusicData();
         }
-    }, [userInfo]);
+    }, [userInfo, userId]);
 
 
     return (
@@ -49,9 +50,7 @@ export const YoutubeContent = ({userInfo, setUserInfo}: YtDashboardContentProps)
             <div className="flex flex-row items-center justify-start px-8">
                 <h1 className="text-2xl font-bold text-gray-100 pr-4">Playlists</h1>
                     <YtConnectRefreshButton userInfo={userInfo} setUserInfo={setUserInfo} setPlaylistData={setPlaylistData}/>
-                <h2 className="text-2xl font-bold text-gray-100 pr-4">Create PLaylist</h2>
-                    <Button onClick={handlePlaylist}>Playlist Test</Button>
-                </div>
+            </div>
 
             <div className='flex flex-col justify-center items-center w-full'>
                 <div className='w-full px-8'>
