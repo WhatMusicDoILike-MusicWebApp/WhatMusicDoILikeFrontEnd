@@ -1,8 +1,8 @@
 
 import axios from "axios";
-import { Button, Separator } from "../../ui";
+import { Separator } from "../../ui";
 import { useAuth } from "@clerk/clerk-react";
-import { FetchMusicDataResponse, Playlist, UserResponse } from "../constants-types";
+import { Playlist, UserResponse } from "../constants-types";
 import { BACKEND_ENDPOINT } from "@/main";
 import { PlaylistCards } from "./PlaylistCards";
 import { useEffect, useState } from "react";
@@ -19,14 +19,14 @@ export const YoutubeContent = ({userInfo, setUserInfo}: YtDashboardContentProps)
     const [playlistData, setPlaylistData] = useState<Playlist[]>([]);
     
 
-    const handlePlaylist = async () => {
-        try {
-            const response = await axios.post<FetchMusicDataResponse>(`${BACKEND_ENDPOINT}/youtube/yt_create_playlist`, {  userId } );
-            console.log(response.data);  // Log response properly
-        } catch (error) {
-            console.error("Error during YouTube Auth:", error);
-        }
-    };  
+    // const handlePlaylist = async () => {
+    //     try {
+    //         const response = await axios.post<FetchMusicDataResponse>(`${BACKEND_ENDPOINT}/youtube/yt_create_playlist`, {  userId } );
+    //         console.log(response.data);  // Log response properly
+    //     } catch (error) {
+    //         console.error("Error during YouTube Auth:", error);
+    //     }
+    // };  
 
     useEffect(() => {
         const fetchMusicData = async () => {
