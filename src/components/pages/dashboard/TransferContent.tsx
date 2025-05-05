@@ -1,7 +1,6 @@
 import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui";
 import { Separator } from "@/components/ui/separator";
 import { FetchMusicDataResponse, Playlist, UserResponse } from "../constants-types";
-import { z } from "zod";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useEffect, useState } from "react";
 import { BACKEND_ENDPOINT } from "@/main";
