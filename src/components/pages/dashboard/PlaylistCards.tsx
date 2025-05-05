@@ -15,9 +15,9 @@ export const PlaylistCards = ({ playlistData }: PlaylistCardsProps): JSX.Element
                         <CardHeader>
                             <CardTitle>
                                 <div className="flex items-center justify-start">
-                                    {playlist.imageUrl && <img src={playlist.imageUrl} className="w-8 h-8 rounded-sm" />}
+                                    {playlist.playlistImageUrl && <img src={playlist.playlistImageUrl} className="w-8 h-8 rounded-sm" />}
                                     <div className='pl-2'>
-                                        <a href={playlist.url} target="_blank" rel="noopener noreferrer">
+                                        <a href={playlist.playlistUrl} target="_blank" rel="noopener noreferrer">
                                             {playlist.playlistName}
                                         </a>
                                     </div>
