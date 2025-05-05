@@ -87,9 +87,11 @@ export interface Track {
 }
 
 export interface Playlist {
-    url: string;
-    imageUrl: string;
+    playlistUrl: string;
+    isYtPlaylist: boolean;
+    playlistImageUrl: string;
     playlistName: string;
+    playlistId: number;
     tracks: Track[];
 }
 

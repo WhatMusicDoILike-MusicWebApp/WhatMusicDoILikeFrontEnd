@@ -10,6 +10,7 @@ import { YoutubeContent } from "./YoutubeContent";
 import { SpotifyDashboardContent } from "./SpotifyDashboardContent";
 import { BACKEND_ENDPOINT } from "@/main";
 import { InsightsContent } from "./Insights/Insights";
+import { TransferContent } from "./TransferContent";
 
 export const DashboardPage = (): JSX.Element => {
     const [currentMainContent, setCurrentMainContent] = useState<MainContent>(MainContent.Spotify);
@@ -24,11 +25,11 @@ export const DashboardPage = (): JSX.Element => {
             case MainContent.Spotify:
                 return <SpotifyDashboardContent userInfo={userInfo} setUserInfo={setUserInfo} />;
             case MainContent.YoutubeMusic:
-                return <YoutubeContent userInfo={userInfo} setUserInfo={setUserInfo}/>;
+                return <YoutubeContent userInfo={userInfo} setUserInfo={setUserInfo} />;
             case MainContent.Transfer:
-                return <>Transfer</>;
+                return <TransferContent userInfo={userInfo} />;
             case MainContent.Insights:
-                return <InsightsContent/>;
+                return <InsightsContent />;
             default:
                 return <>Hello! This is the Dashboard Page.</>;
         }

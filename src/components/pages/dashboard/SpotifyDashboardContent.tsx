@@ -15,18 +15,19 @@ export const SpotifyDashboardContent = ({ userInfo, setUserInfo }: SpotifyDashbo
     const [playlistData, setPlaylistData] = useState<Playlist[]>([]);
 
     useEffect(() => {
-        const fetchMusicData = async () => {
+        const fetchSpotifyMusicData = async () => {
             try {
                 const response = await axios.get<FetchMusicDataResponse>(`${BACKEND_ENDPOINT}/playlists`, { params: { userId: userInfo.userId } });
                 console.log(response.data);
-                setPlaylistData(response.data.playlists);
+                const filteredPlaylists = response.data.playlists.filter(playlist => playlist.isYtPlaylist == false);
+                setPlaylistData(filteredPlaylists);
             } catch (error) {
                 console.log('Error: ' + error);
             }
         }
 
         if (userInfo.userId)
-            fetchMusicData();
+            fetchSpotifyMusicData();
     }, [userInfo]);
 
     return (
