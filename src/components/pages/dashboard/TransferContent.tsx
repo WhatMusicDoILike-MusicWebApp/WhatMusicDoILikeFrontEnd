@@ -2,7 +2,7 @@ import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle } fro
 import { Separator } from "@/components/ui/separator";
 import { FetchMusicDataResponse, Playlist, UserResponse } from "../constants-types";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { BACKEND_ENDPOINT } from "@/main";
 import axios from "axios";
 
@@ -79,7 +79,7 @@ export const TransferContent = ({ userInfo }: TransferContentProps): JSX.Element
 
                                 <div className="flex flex-col items-center justify-center w-full gap-2">
 
-                                    <Select onValueChange={(value) => {
+                                    <Select onValueChange={(value: string) => {
                                         const selected = playlistData.find(playlist => playlist.playlistName == value);
                                         if (selected) setSelectedPlaylist(selected.playlistId);
                                     }}>
@@ -102,7 +102,7 @@ export const TransferContent = ({ userInfo }: TransferContentProps): JSX.Element
                                         </SelectContent>
                                     </Select>
 
-                                    <Select onValueChange={(value) => setSelectedService(value)}>
+                                    <Select onValueChange={(value: SetStateAction<string>) => setSelectedService(value)}>
                                         <SelectTrigger className="w-full">
                                             <SelectValue placeholder="Destination Service" />
                                         </SelectTrigger>
