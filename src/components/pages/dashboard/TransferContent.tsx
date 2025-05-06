@@ -5,6 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { SetStateAction, useEffect, useState } from "react";
 import { BACKEND_ENDPOINT } from "@/main";
 import axios from "axios";
+import { useAuth } from "@clerk/clerk-react";
 
 interface TransferContentProps {
     userInfo: UserResponse;
@@ -14,6 +15,8 @@ export const TransferContent = ({ userInfo }: TransferContentProps): JSX.Element
     const [playlistData, setPlaylistData] = useState<Playlist[]>([]);
     const [selectedPlaylist, setSelectedPlaylist] = useState<number>();
     const [selectedService, setSelectedService] = useState<string>("");
+
+    const { userId } = useAuth();
 
     useEffect(() => {
         const fetchMusicData = async () => {
@@ -35,21 +38,23 @@ export const TransferContent = ({ userInfo }: TransferContentProps): JSX.Element
     const handleTransferClick = async () => {
 
 
-        // if (!selectedPlaylist || !selectedService) {
-        //     console.error("Please select a playlist and a destination service.");
-        //     return;
-        // }
+        const backendEndpoint = selectedService == "YoutubeMusic" ? `${BACKEND_ENDPOINT}/youtube/yt_create_playlist` : `${BACKEND_ENDPOINT}/spotify/transfer_playlist`;
 
-        // const transferData = {
-        //     playlistId: selectedPlaylist,
-        //     destinationService: selectedService,
-        // };
+        const transferData = selectedService == "YoutubeMusic" ? {
+            playlistId: selectedPlaylist,
+            userId: userId,
+        } : {
+            playlistID: selectedPlaylist,
+            userID: userId,
+        };
 
         try {
-            // const response = await axios.post(`${BACKEND_ENDPOINT}/transfer`, transferData);
             console.log("Transfer clicked")
             console.log("Selected Playlist ID:", selectedPlaylist);
             console.log("Selected Service:", selectedService);
+            console.log(`${backendEndpoint}`, transferData);
+            const response = await axios.post(`${backendEndpoint}`, transferData);
+            console.log("Transfer Response:", response.data);
         } catch (error) {
             console.error("Error transferring playlist:", error);
         }
