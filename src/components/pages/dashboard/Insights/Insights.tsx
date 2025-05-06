@@ -4,7 +4,7 @@ import axios from 'axios';
 import { BACKEND_ENDPOINT } from '@/main';
 import { Button } from '@/components/ui';
 import { useAuth } from '@clerk/clerk-react';
-
+import { Loader2 } from 'lucide-react';
 
 interface Recommendation {
   title: string;
@@ -22,6 +22,9 @@ export const InsightsContent = (): JSX.Element => {
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [genres, setGenres] = useState<Genre[]>([]);
 
+  const [isRecommendationsLoading, setIsRecommendationsLoading] = useState(false);
+  const [isGenresLoading, setIsGenresLoading] = useState(false);
+
   const cleanJSON = (raw: string): string => {
     return raw.replace(/```json|```/g, '').trim();
   };
@@ -29,6 +32,7 @@ export const InsightsContent = (): JSX.Element => {
 
   const fetchRecommendations = async (userId: string): Promise<Recommendation[]> => {
     try {
+      setIsRecommendationsLoading(true);
       const response = await axios.post(`${BACKEND_ENDPOINT}/fetchRecommendations`, {
         userId,
       });
@@ -40,11 +44,14 @@ export const InsightsContent = (): JSX.Element => {
     } catch (error: any) {
       console.error("Error fetching recommendations:", error.response?.data || error.message);
       throw error;
+    } finally {
+      setIsRecommendationsLoading(false);
     }
   };
 
   const fetchGenres = async (userId: string): Promise<Genre[]> => {
     try {
+      setIsGenresLoading(true);
       const response = await axios.post(`${BACKEND_ENDPOINT}/fetchGenres`, {
         userId,
       });
@@ -56,14 +63,23 @@ export const InsightsContent = (): JSX.Element => {
     } catch (error: any) {
       console.error("Error fetching genres:", error.response?.data || error.message);
       throw error;
+    } finally {
+      setIsGenresLoading(false);
     }
   };
 
   return (
     <>
       <div className="flex flex-row items-center justify-start gap-4 px-8">
-        <Button onClick={() => userId && fetchRecommendations(userId)}>Get Recommendations</Button>
-        <Button onClick={() => userId && fetchGenres(userId)}>Get Genres</Button>
+
+        <Button onClick={() => userId && fetchRecommendations(userId)} disabled={isRecommendationsLoading}>
+          Get Recommendations
+          {isRecommendationsLoading && <Loader2 className="animate-spin" />}
+        </Button>
+        <Button onClick={() => userId && fetchGenres(userId)} disabled={isGenresLoading}>
+          Get Genres
+          {isGenresLoading && <Loader2 className="animate-spin" />}
+        </Button>
       </div>
 
       <div className="w-full px-8">
