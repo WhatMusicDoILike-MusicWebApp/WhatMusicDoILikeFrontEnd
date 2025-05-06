@@ -42,7 +42,6 @@ export const TransferContent = ({ userInfo }: TransferContentProps): JSX.Element
 
         const transferData = selectedService == "YoutubeMusic" ? {
             playlistIds: [selectedPlaylist],
-            playlistIds: selectedPlaylist,
             userId: userId,
         } : {
             playlistID: selectedPlaylist,
