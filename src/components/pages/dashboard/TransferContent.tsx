@@ -36,13 +36,12 @@ export const TransferContent = ({ userInfo }: TransferContentProps): JSX.Element
 
 
     const handleTransferClick = async () => {
-
-
         const backendEndpoint = selectedService == "YoutubeMusic" ? `${BACKEND_ENDPOINT}/youtube/yt_create_playlist` : `${BACKEND_ENDPOINT}/spotify/transfer_playlist`;
 
         const transferData = selectedService == "YoutubeMusic" ? {
             playlistIds: [selectedPlaylist],
             userId: userId,
+            playlistName: playlistData.find(playlist => playlist.playlistId == selectedPlaylist)?.playlistName,
         } : {
             playlistID: selectedPlaylist,
             userID: userId,
