@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Separator } from '../../../ui';
+import { Card, CardHeader, Separator } from '../../../ui';
 import axios from 'axios';
 import { BACKEND_ENDPOINT } from '@/main';
 import { Button } from '@/components/ui';
@@ -12,7 +12,7 @@ interface Recommendation {
 }
 
 interface Genre {
-  Genre: string;
+  genre: string;
   explanation: string;
 }
 
@@ -30,17 +30,17 @@ export const InsightsContent = (): JSX.Element => {
   };
 
 
-  const fetchRecommendations = async (userId: string): Promise<Recommendation[]> => {
+  const fetchRecommendations = async (userId: string) => {
     try {
       setIsRecommendationsLoading(true);
       const response = await axios.post(`${BACKEND_ENDPOINT}/fetchRecommendations`, {
         userId,
       });
-
-      const data: Recommendation[] = JSON.parse(cleanJSON(response.data.recommendations));
-      setRecommendations(data);
-      console.log(recommendations);
-      return recommendations;
+      const cleanJSONData = cleanJSON(response.data.recommendations);
+      console.log(cleanJSONData);
+      const data = JSON.parse(cleanJSONData);
+      console.log(data.recommendations);
+      setRecommendations(data.recommendations);
     } catch (error: any) {
       console.error("Error fetching recommendations:", error.response?.data || error.message);
       throw error;
@@ -49,17 +49,19 @@ export const InsightsContent = (): JSX.Element => {
     }
   };
 
-  const fetchGenres = async (userId: string): Promise<Genre[]> => {
+  const fetchGenres = async (userId: string) => {
     try {
       setIsGenresLoading(true);
       const response = await axios.post(`${BACKEND_ENDPOINT}/fetchGenres`, {
         userId,
       });
+      console.log('Response: ' + response.data);
 
-      const data: Genre[] = JSON.parse(cleanJSON(response.data.recommendations));
-      setGenres(data);
-      console.log(genres);
-      return genres;
+      const cleanJSONData = cleanJSON(response.data.recommendations);
+      console.log(cleanJSONData);
+      const data = JSON.parse(cleanJSONData);
+      console.log(data.topGenres);
+      setGenres(data.topGenres);
     } catch (error: any) {
       console.error("Error fetching genres:", error.response?.data || error.message);
       throw error;
@@ -86,30 +88,44 @@ export const InsightsContent = (): JSX.Element => {
         <Separator className="my-4 rounded-sm" />
       </div>
 
-      <div className="flex flex-row justify-center items-start w-full gap-16 px-8">
-        <div className="flex-1">
-          <h2 className="text-xl font-semibold mb-4">Recommendations</h2>
-          <ul className="space-y-2">
-            {Array.isArray(recommendations) && recommendations.map((rec, idx) => (
-              <div key={idx} className="text-left mb-4">
-                <p className="font-bold">{rec.title}</p>
-                <p className="text-sm text-gray-500">{rec.artist}</p>
-              </div>
-            ))}
-          </ul>
-        </div>
+      <div className="flex flex-row justify-start items-start w-full gap-16 px-8">
 
-        <div className="flex-1">
-          <h2 className="text-xl font-semibold mb-4">Top Genres</h2>
-          <ul className="space-y-2">
-            {Array.isArray(genres) && genres.map((genre, idx) => (
-              <div key={idx} className="text-left mb-4">
-                <p className="font-bold">{genre.Genre}</p>
-                <p className="text-sm text-gray-500">{genre.explanation}</p>
-              </div>
-            ))}
-          </ul>
-        </div>
+
+        <Card className='width-1/3'>
+          <CardHeader>
+            <h2 className="text-xl font-semibold mb-4">Recommendations</h2>
+          </CardHeader>
+          <div className="flex-1 ml-2">
+            <ul className="space-y-2">
+              {recommendations.map((rec, idx) => (
+                <div key={idx} className="text-left mb-4 text-wrap">
+                  <p className="font-bold">{rec.title}</p>
+                  <p className="text-sm text-gray-500">{rec.artist}</p>
+                </div>
+              ))}
+            </ul>
+          </div>
+        </Card>
+
+        <Card className='width-1/3'>
+          <CardHeader>
+            <h2 className="text-xl font-semibold mb-4">Your Top Genres</h2>
+          </CardHeader>
+          <div className="flex-1 ml-2">
+            <ul className="space-y-2">
+              {genres.map((genre, idx) => (
+                <div key={idx} className="text-left mb-4 text-wrap">
+                  <p className="font-bold">{genre.genre}</p>
+                  <p className="text-sm text-gray-500">{genre.explanation}</p>
+                </div>
+              ))}
+            </ul>
+          </div>
+        </Card>
+
+
+
+
       </div>
     </>
   );
