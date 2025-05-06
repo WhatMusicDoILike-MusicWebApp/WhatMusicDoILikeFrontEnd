@@ -38,6 +38,7 @@ export const YtConnectRefreshButton = ({ userInfo, setUserInfo, setPlaylistData 
             // Start polling for OAuth completion
             const pollInterval = setInterval(async () => {
                 try {
+                    console.log("Polling with userId:", userId);
                     const pollResponse = await axios.get(`${BACKEND_ENDPOINT}/youtube/yt_auth/poll/${userId}`);
                     if (pollResponse.data.status === "authenticated") {
                         clearInterval(pollInterval);
