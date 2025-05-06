@@ -30,7 +30,7 @@ export const YtConnectRefreshButton = ({ userInfo, setUserInfo, setPlaylistData 
         try {
             const { data } = await axios.post(`${BACKEND_ENDPOINT}/youtube/yt_auth/init`, { userId });
     
-            const { auth_url, session_id } = data;
+            const { auth_url } = data;
     
             // Open the OAuth URL in a new tab
             window.open(auth_url, "_blank");
@@ -38,7 +38,7 @@ export const YtConnectRefreshButton = ({ userInfo, setUserInfo, setPlaylistData 
             // Start polling for OAuth completion
             const pollInterval = setInterval(async () => {
                 try {
-                    const pollResponse = await axios.get(`${BACKEND_ENDPOINT}/youtube/yt_auth/poll/${session_id}`);
+                    const pollResponse = await axios.get(`${BACKEND_ENDPOINT}/youtube/yt_auth/poll/${userId}`);
                     if (pollResponse.data.status === "authenticated") {
                         clearInterval(pollInterval);
                         // Save token state if you want to mark user as connected
