@@ -81,7 +81,10 @@ export const YtConnectRefreshButton = ({ userInfo, setUserInfo, setPlaylistData 
     return (
         <>
             {displayConnect ? (
+                <>
                 <Button onClick={handleYtAuthClick}>Connect YoutubeMusic</Button>
+                <Button onClick={handleRefreshYtDataClick}> Manual Refresh</Button>
+                </>
             ) : (
                 <Button disabled={isFetchLoading} onClick={handleRefreshYtDataClick}>
                     Refresh Data {isFetchLoading && <Loader2 className="animate-spin" />}
