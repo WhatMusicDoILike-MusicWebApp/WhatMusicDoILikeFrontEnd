@@ -76,6 +76,8 @@ export interface UserResponse {
     spotifyAuthToken: string;
     spotifyRefreshToken: string;
     ytToken: string;
+    youtubeDeviceCode: string;
+    pendingYoutubeAuth: boolean;
 }
 
 export interface Track {

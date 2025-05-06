@@ -42,7 +42,7 @@ export const YoutubeContent = ({userInfo, setUserInfo}: YtDashboardContentProps)
         if (userInfo.ytToken) {
             fetchMusicData();
         }
-    }, [userInfo, userId]);
+    }, [userInfo]);
 
 
     return (

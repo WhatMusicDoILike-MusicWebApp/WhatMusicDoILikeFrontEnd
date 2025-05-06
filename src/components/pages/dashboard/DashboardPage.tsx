@@ -14,7 +14,7 @@ import { TransferContent } from "./TransferContent";
 
 export const DashboardPage = (): JSX.Element => {
     const [currentMainContent, setCurrentMainContent] = useState<MainContent>(MainContent.Spotify);
-    const [userInfo, setUserInfo] = useState<UserResponse>({ userId: '', email: '', name: '', spotifyAuthToken: '', spotifyRefreshToken: '', ytToken: '' });
+    const [userInfo, setUserInfo] = useState<UserResponse>({ userId: '', email: '', name: '', spotifyAuthToken: '', spotifyRefreshToken: '', ytToken: '', pendingYoutubeAuth: false, youtubeDeviceCode: '' });
 
     const clerk = useClerk();
     const { session } = useSession();
@@ -52,7 +52,9 @@ export const DashboardPage = (): JSX.Element => {
                         name: response.data.name,
                         spotifyAuthToken: response.data.spotifyAuthToken,
                         spotifyRefreshToken: response.data.spotifyRefreshToken,
-                        ytToken: response.data.ytToken
+                        ytToken: response.data.ytToken,
+                        pendingYoutubeAuth: response.data.pendingYoutubeAuth,
+                        youtubeDeviceCode: response.data.youtubeDeviceCode
                     }
                     setUserInfo(setUserConfig);
                 });
