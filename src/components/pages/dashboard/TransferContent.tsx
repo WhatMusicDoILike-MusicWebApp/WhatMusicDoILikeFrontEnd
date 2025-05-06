@@ -41,7 +41,7 @@ export const TransferContent = ({ userInfo }: TransferContentProps): JSX.Element
         const backendEndpoint = selectedService == "YoutubeMusic" ? `${BACKEND_ENDPOINT}/youtube/yt_create_playlist` : `${BACKEND_ENDPOINT}/spotify/transfer_playlist`;
 
         const transferData = selectedService == "YoutubeMusic" ? {
-            playlistId: [selectedPlaylist],
+            playlistIds: [selectedPlaylist],
             userId: userId,
         } : {
             playlistID: selectedPlaylist,
